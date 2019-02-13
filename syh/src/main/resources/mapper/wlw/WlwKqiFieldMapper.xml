@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.syh.dao.wlw.WlwKqiFieldMapper" >
+    <resultMap id="BaseResultMap" type="com.ygy.syh.domain.wlw.WlwKqiField" >
+
+        <result column="date_id" property="dateId" jdbcType="INTEGER" />
+        <result column="field" property="field" jdbcType="VARCHAR" />
+        <result column="attach_count" property="attachCount" jdbcType="BIGINT" />
+        <result column="attach_rate" property="attachRate" jdbcType="NUMERIC" />
+        <result column="tcp_core_rate" property="tcpCoreRate" jdbcType="NUMERIC" />
+        <result column="tcp_wx_rate" property="tcpWxRate" jdbcType="NUMERIC" />
+        <result column="http_rate" property="httpRate" jdbcType="NUMERIC" />
+
+    </resultMap>
+    <sql id="Base_Column_List" >
+        date_id,field,attach_count,attach_rate,tcp_core_rate,tcp_wx_rate,http_rate
+    </sql>
+
+
+
+    <select id="findzuoyouData" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from f_cmcc_wlw_kqi_field_cjj where date_id=#{yesDate}
+    </select>
+
+
+</mapper>

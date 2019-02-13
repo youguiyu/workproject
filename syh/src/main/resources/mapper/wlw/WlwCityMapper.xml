@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.syh.dao.wlw.WlwCityMapper" >
+    <resultMap id="BaseResultMap" type="com.ygy.syh.domain.wlw.WlwCity" >
+
+        <result column="date_id" property="dateId" jdbcType="INTEGER" />
+        <result column="city_id" property="cityId" jdbcType="INTEGER" />
+        <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+        <result column="apn_cnt" property="apnCnt" jdbcType="INTEGER" />
+        <result column="user_cnt" property="userCnt" jdbcType="BIGINT" />
+        <result column="xdr_cnt" property="xdrCnt" jdbcType="BIGINT" />
+        <result column="flow_gb" property="flowGb" jdbcType="NUMERIC" />
+
+    </resultMap>
+    <sql id="Base_Column_List" >
+        date_id,city_id,city_name,apn_cnt,user_cnt,xdr_cnt,flow_gb
+    </sql>
+    <select id="findWlwCityByDateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from f_cmcc_wlw_city_cjj where date_id=#{yesDate} order by city_id asc
+    </select>
+
+</mapper>

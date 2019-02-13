@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.syh.dao.master.ChinaNdDao">
+    <resultMap id="BaseResultMap" type="com.ygy.syh.domain.ChinaNd">
+        <result column="user_province" property="userProvince" />
+        <result column="city_name" property="cityName" />
+        <result column="user_count" property="userCount" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap1" type="com.ygy.syh.domain.TopCell">
+        <result column="countNum" property="countNum" />
+        <result column="cell_name" property="cellName" />
+    </resultMap>
+
+
+
+    <select id="queryBy4GTime" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select  user_province,city_name,count(*)as user_count from
+        (select c.date_id,c.imsi,c.city_id as user_city_id,d.province_name as user_province,d.city_name as user_city,c.city_name,c.county_name,c.cell_name,c.eci,c.ci from
+        (select a.date_id,a.imsi,a.city_id,b.city_name,b.county_name,b.ci,b.eci,b.cell_name
+        from (select * from ${tableName} where city_id not like '59%' and city_id!='null' ) a
+        inner join cell4g b
+        on a.eci=b.eci)c
+        inner join city_lzs d
+        on c.city_id=d.city_id) w  where w.city_name='宁德'  GROUP BY user_province,city_name
+    </select>
+
+    <select id="queryBy2GTime" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select  user_province,city_name,count(*)as user_count from
+        (select c.date_id,c.imsi,c.city_id as user_city_id,d.province_name as user_province,d.city_name as user_city,c.city_name,c.county_name,c.cell_name,c.lac,c.ci from
+        (select a.date_id,a.imsi,a.city_id,b.city_name,b.county_name,b.ci,b.lac,b.cell_name
+        from (select * from ${tableName} where city_id not like '59%' and city_id!='null' ) a
+        inner join cell2g b
+        on a.lac=b.lac and a.ci=b.ci)c
+        inner join city_lzs d
+        on c.city_id=d.city_id) w  where w.city_name='宁德'  GROUP BY user_province,city_name
+    </select>
+
+    <select id="selectTableByName" parameterType="java.lang.String" resultType="String">
+        SELECT table_name FROM information_schema.TABLES WHERE table_name =${tableName}
+    </select>
+
+    <select id="selectTms4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci in ('56470930',
+        '117070210',
+        '117070211',
+        '117065602',
+        '117065603',
+        '117068930',
+        '117068931',
+        '117069698',
+        '117069699',
+        '117069954',
+        '117069955',
+        '253589776',
+        '253589777',
+        '116811650',
+        '116811651',
+        '116811652',
+        '110407696',
+        '110407697',
+        '110407698',
+        '110407699',
+        '110407700',
+        '110407701',
+        '110407952',
+        '110407953',
+        '110407954',
+        '116817282',
+        '116817283',
+        '116817284',
+        '7181186',
+        '7181187',
+        '110441232',
+        '110441233',
+        '110441488',
+        '253447440',
+        '253447952',
+        '253447953',
+        '110554640',
+        '110554641',
+        '110554642',
+        '110440976',
+        '110440977',
+        '253447696',
+        '253447697',
+        '253447698',
+        '253447441',
+        '110441744',
+        '110441745',
+        '110441746') group by w.eci,cell_name) t
+    </select>
+    <select id="selectTms2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593' and b.ci in('25992',
+        '30847',
+        '55981',
+        '55982',
+        '55983',
+        '55987',
+        '23321',
+        '23322',
+        '25997',
+        '55971',
+        '55972',
+        '55961',
+        '46281',
+        '46282',
+        '23317',
+        '23318',
+        '55941',
+        '55942',
+        '55943',
+        '20381',
+        '20382',
+        '30751',
+        '30752',
+        '30753',
+        '21561',
+        '21562',
+        '21563',
+        '23311',
+        '23312',
+        '23313',
+        '50021',
+        '28481',
+        '47021',
+        '30841',
+        '61051',
+        '55962',
+        '55963',
+        '27071',
+        '27072',
+        '27073',
+        '28821',
+        '28822',
+        '21641',
+        '21642',
+        '21643',
+        '27851',
+        '27852',
+        '27853',
+        '50281',
+        '41161',
+        '41162',
+        '41163',
+        '20561',
+        '20562',
+        '20563',
+        '20564',
+        '20565',
+        '20566',
+        '61831',
+        '61832',
+        '62972',
+        '62973',
+        '55781',
+        '55741',
+        '55742',
+        '43151',
+        '39291',
+        '39292',
+        '23521',
+        '23522',
+        '23523',
+        '24741',
+        '35451',
+        '35452',
+        '48161',
+        '44701',
+        '44702',
+        '44703',
+        '35531',
+        '57491',
+        '34641',
+        '56491',
+        '35441',
+        '34781',
+        '37401',
+        '26251') and a.lac in ('24634',
+        '24624',
+        '22836',
+        '22845',
+        '22832',
+        '25040',
+        '22844',
+        '22839'
+        )
+        GROUP BY a.lac,b.ci) t
+    </select>
+    <select id="selectBq4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci in ('110445072',
+        '110445073',
+        '110445074',
+        '253523472',
+        '253523473',
+        '253529360',
+        '253529361',
+        '253529362') group by w.eci,cell_name) t
+    </select>
+    <select id="selectBq2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+       select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593' and b.ci in('27071',
+        '27072',
+        '27073',
+        '28821',
+        '28822',
+        '21641',
+        '21642',
+        '21643') and a.lac in ('22836',
+        '22845'
+        )
+        GROUP BY a.lac,b.ci) t
+    </select>
+    <select id="selectBsy4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+           select sum(countNum) as userCount from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci in ('40773440',
+            '40773441',
+            '40652098',
+            '110463760',
+            '110463761',
+            '110463762',
+            '110463745',
+            '110463504',
+            '110463505',
+            '110463248',
+            '110463249',
+            '110463235',
+            '110463233',
+            '110463234',
+            '110444560',
+            '110444561',
+            '110444562',
+            '110444548',
+            '56606609',
+            '56606610',
+            '56606865',
+            '56606866',
+            '56604049',
+            '56604050',
+            '253681168',
+            '7091074',
+            '7091075',
+            '7091076',
+            '56603537',
+            '56603538',
+            '56603539',
+            '7300738',
+            '7300739',
+            '110464528',
+            '110464529',
+            '110464530',
+            '110464531',
+            '110464016',
+            '110464017',
+            '110464272',
+            '110464273',
+            '110464257',
+            '110427176',
+            '110427177',
+            '110438952',
+            '7304323',
+            '56535429',
+            '56542083',
+            '253362961',
+            '253362962',
+            '253362964',
+            '253362965',
+            '253417000',
+            '253417001',
+            '34414695',
+            '110424104') group by w.eci,cell_name) t
+    </select>
+    <select id="selectBsy2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+          select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+            inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593' and b.ci in('39291',
+            '39292',
+            '23521',
+            '23522',
+            '23523',
+            '24741',
+            '35451',
+            '35452',
+            '48161',
+            '44701',
+            '44702',
+            '44703',
+            '35531',
+            '57491',
+            '34641',
+            '56491',
+            '35441',
+            '34781',
+            '37401',
+            '26251',
+            '20146',
+            '20143',
+            '48431',
+            '43581',
+            '39011') and a.lac in ('22839')
+            GROUP BY a.lac,b.ci) t
+    </select>
+    <select id="selectCph4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+           select sum(countNum) as userCount from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci in ('253386000',
+            '253386001',
+            '253386002',
+            '7062658',
+            '7062659',
+            '7062660',
+            '110461968',
+            '110461969',
+            '110461953',
+            '253706512',
+            '253706513',
+            '253706514',
+            '7281064') group by w.eci,cell_name) t
+    </select>
+    <select id="selectCph2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+           select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+            inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593' and b.ci in('27851',
+            '27852',
+            '27853',
+            '50281') and a.lac in ('22832')
+            GROUP BY a.lac,b.ci) t
+                </select>
+    <select id="selectDss4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+           select sum(countNum) as userCount from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci in ('40891971',
+            '40891974',
+            '40749382',
+            '116765826',
+            '116765828',
+            '116765829',
+            '116764546',
+            '110525200',
+            '110525201',
+            '56607144',
+            '56529832') group by w.eci,cell_name) t
+    </select>
+    <select id="selectDss2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+           select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+            inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593' and b.ci in('62972',
+            '62973',
+            '55781',
+            '55741',
+            '55742',
+            '43151') and a.lac in ('22844')
+            GROUP BY a.lac,b.ci) t
+    </select>
+    <select id="selectLyx4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+           select sum(countNum) as userCount from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci in ('40723776',
+            '40723777',
+            '40723778',
+            '40728640',
+            '40728641',
+            '40728642',
+            '110487056',
+            '110487057',
+            '253537296',
+            '253537297',
+            '253537298',
+            '110445584',
+            '110445585',
+            '110445586',
+            '110445587',
+            '110445588',
+            '110445589',
+            '116891266',
+            '7097218',
+            '7097219',
+            '7097220'
+            ) group by w.eci,cell_name) t
+    </select>
+    <select id="selectLyx2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+          select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+            inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593' and b.ci in('41161',
+            '41162',
+            '41163',
+            '20561',
+            '20562',
+            '20563',
+            '20564',
+            '20565',
+            '20566',
+            '61831',
+            '61832'
+            ) and a.lac in ('25040')
+            GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <select id="selectWh4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+          select sum(countNum) as userCount from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci in ('56494211', '56494212', '56494213') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectGj4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+          select sum(countNum) as userCount from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci in ('110464808', '110464809') group by w.eci,cell_name) t
+    </select>
+    <select id="selectHt4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+          select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci in ('253551120', '253551121', '253551122', '253551123', '253551124', '253551125', '110493185', '110493186', '110493187', '110493188', '110493189', '110493190', '253378088') group by w.eci,cell_name) t
+    </select>
+    <select id="selectJjl4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+          select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+          in ('110430760', '110430761', '110430762') group by w.eci,cell_name) t
+    </select>
+    <select id="selectHwj4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110453520', '110453521', '110453522', '110433064', '110433065', '110433066') group by w.eci,cell_name) t
+    </select>
+    <select id="selectMd4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('7281832', '7309442') group by w.eci,cell_name) t
+    </select>
+    <select id="selectHedf4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253586704', '253586705', '253586706', '110391297', '110391298', '110391299', '110391300', '110391301', '110416424', '110416425', '110416426') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectHedf2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('48301', '42251', '48304', '48305', '48306', '48307', '42252', '42253') and a.lac in ('22833')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <select id="selectJhw4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253657384', '253657385') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectMl4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110419496', '110419497', '56311681', '56311682', '56311683') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectSda4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253297936', '253297937', '110422824', '110422825', '110422826', '110422827') group by w.eci,cell_name) t
+    </select>
+
+
+    <select id="selectWdjh4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('56550273', '56550274', '56550275', '56550276', '110362625', '110362626', '110362627', '110362634', '110362632', '110362631', '110362628', '110362628', '110362629', '110362629', '110393857', '110393858', '110393859', '110393866', '110393867', '110393868', '253605648', '253605649', '253605650', '253605651', '253605652', '253605653', '110415144', '110415145', '110415146', '110415147', '110415148', '110415149', '110438184', '110438196', '110417192', '110417193', '110417194', '110417195', '110417196', '110386433', '110386434') group by w.eci,cell_name) t
+    </select>
+
+
+
+    <select id="selectWdjh2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('49941', '52421', '52422', '49944', '24024', '24025', '24021', '52121', '52124', '52125', '52126', '52122', '49881', '49891', '49892') and a.lac in ('22833')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <select id="selectTwt4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110424104') group by w.eci,cell_name) t
+    </select>
+
+
+    <select id="selectLqgj4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110539304', '110539305') group by w.eci,cell_name) t
+    </select>
+
+
+
+
+    <select id="selectLqgj2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('54751', '54752', '54753', '54757', '54758') and a.lac in ('22846')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+    <select id="selectCx4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253365288') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectDj4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110531344', '110531345', '110531346', '110444840', '110444841') group by w.eci,cell_name) t
+    </select>
+
+
+    <select id="selectDh4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110439720') group by w.eci,cell_name) t
+    </select>
+
+
+
+
+    <select id="selectDh2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('64271') and a.lac in ('22844')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+    <select id="selectJy4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253393960') group by w.eci,cell_name) t
+    </select>
+
+
+
+
+    <select id="selectJy2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('49051') and a.lac in ('24637')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <select id="selectXbg4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253668136') group by w.eci,cell_name) t
+    </select>
+
+
+
+
+    <select id="selectXbg2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('38521') and a.lac in ('24637')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+
+
+
+    <select id="selectFaat4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253729552', '253729553', '253729554', '56396930', '56396931', '56396932', '56396933', '56396934', '56396935', '7234690', '7234691', '7234692') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectFaat2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('63751', '63752', '63753', '62314', '62315', '62316', '22101', '22102', '22103') and a.lac in ('24628')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+    <select id="selectFatyc4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('56301201', '56301202', '56301203', '56301204', '56301205', '110450433', '110450434', '110450435', '253619713', '253619714', '253619715', '56319618', '56319619', '56319620', '56319621', '56319622') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectFatyc2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('51837', '51831', '51832', '51833') and a.lac in ('22840','24630')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+    <select id="selectFayz4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+    in ('253277200', '253277201', '253277202') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectFayz2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('53832', '53831') and a.lac in ('24628')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <select id="selectFdymq4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253375233', '253375234', '253625872', '253625873', '253625874', '7244418', '7244419', '7244420', '253626369', '253626370', '253626371') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectFdymq2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('40691', '40692', '40693', '22331', '22332', '22333') and a.lac in ('24625')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+
+    <select id="selectGtcphs4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110461968', '110461969', '110461953', '253706256', '253706257', '253706258', '116776834', '116776835', '253279504', '253279505', '253279506', '253386256', '253386257', '253386258') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectGtcphs2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('27857', '27851', '27852', '27853', '21161', '21162', '21163', '21167', '21168', '36461', '36462', '36463', '38421', '38422', '38423', '36467', '36468', '36469') and a.lac in ('22832')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <select id="selectNdtyzx4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('56437890', '56437892', '253589264', '253589265', '253589266', '110435329', '110435330', '110435331', '7309186', '7309186', '7309187', '110396929', '110396930', '110396931') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectNdtyzx2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('28991', '28994', '28995', '28996', '28992', '28993', '40574', '40575', '40576') and a.lac in ('22833')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+    <select id="selectNdxsy4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253601808', '253601809', '253601810', '253601811', '253601812', '253601813', '110391041', '110391042', '110391043', '110391045', '110391046', '110391049', '253263144', '253263145', '253265665', '253265666', '253265669') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectNdxsy2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('22861', '22862', '22863', '29801', '43314', '43315', '42531', '42532') and a.lac in ('22842')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <select id="selectNdwz4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110393601', '110393602', '110393603', '117093762', '117093763', '117093764', '116895106', '116895107', '116895108', '116895109', '116895110', '116895111', '253565456', '253565457', '253565458', '116895874', '116895875', '116895876') group by w.eci,cell_name) t
+    </select>
+
+
+
+    <select id="selectNdwz2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('44831', '44832', '44833') and a.lac in ('22833')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <select id="selectPnbyc4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('116847234', '116847235', '253282064', '253282065', '253282066') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectPnxyz4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('116849538', '116849539', '116849540', '56545681', '56545682') group by w.eci,cell_name) t
+    </select>
+
+
+
+    <select id="selectSntyg4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110455056', '110455057', '253592592', '253592593', '253592594') group by w.eci,cell_name) t
+    </select>
+
+
+
+
+
+
+    <select id="selectSntyg2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('28521', '28522', '28523', '38091', '38092', '38093', '28524', '28525', '28527', '28528', '38097', '38098') and a.lac in ('22846')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+
+    <select id="selectXpglst4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110445328', '110445329', '110445330', '56459921', '56459922', '56459923', '7115394', '7115395', '7115396') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectXppqg4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('116852866', '116852867', '216938768', '216938769', '216938770', '216938753', '216938754', '216938755', '253499920', '253499921', '253499922', '56454801', '56454802', '56454803', '216955920', '216955921', '216955922') group by w.eci,cell_name) t
+    </select>
+
+    <select id="selectXpyyg4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('216939024', '216939025', '216939026', '116968834', '116968835', '116968836') group by w.eci,cell_name) t
+    </select>
+
+
+
+
+    <select id="selectZrtyg4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253336336', '253336337', '253336338', '253336321', '253336321', '253336321', '253336321', '253445904', '253445905', '110523920', '110523921', '110523922', '110523905', '110523907', '110523906') group by w.eci,cell_name) t
+    </select>
+
+
+    <select id="selectZrtyg2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('40231', '40232', '40233', '40541', '40542', '40543', '40237') and a.lac in ('22844')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <select id="selectZntyg4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253341200', '253341201', '253341202', '7097218', '7097219', '7097220') group by w.eci,cell_name) t
+    </select>
+
+
+    <select id="selectZntyg2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('61831', '61832') and a.lac in ('25040')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+    <!--汽车北站-->
+    <select id="selectNdqcbz4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('253613584', '110449921', '56313234', '253300776', '253300777') group by w.eci,cell_name) t
+    </select>
+
+
+    <select id="selectNdqcbz2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('42304', '42301', '20661', '23591', '23594', '49351', '39921', '38291') and a.lac in ('24626')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <!--汽车南站-->
+    <select id="selectNdqcnz4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('40886592', '40886593', '253597456', '253597457', '253597458', '110434049', '110434050', '110434051', '117093762', '7282088', '253334824', '110418728', '110418740') group by w.eci,cell_name) t
+    </select>
+
+
+    <select id="selectNdqcnz2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('40601', '40602', '40605', '40606', '51241', '39401') and a.lac in ('24633')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <!--宁德站-->
+    <select id="selectNdz4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110449168', '110449170', '110449171', '110449173', '110449174', '110449175', '7312514', '7312515', '7312516', '7312517', '56608130', '56608131', '56608132', '110418472', '110418473', '110418474', '110418475', '110418476', '110418477') group by w.eci,cell_name) t
+    </select>
+
+
+    <select id="selectNdz2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('49151', '61221') and a.lac in ('24634')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <!--宝信广场-->
+    <select id="selectNdbx4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('116839810', '116839043', '7282600', '7282601', '7282612', '7282613', '56503208', '56503209', '56503210', '56503464', '56503465', '56503466', '56503720', '56503721', '56503722', '56503724', '56503725', '56503976', '56503977', '253332520', '253332521') group by w.eci,cell_name) t
+    </select>
+
+
+    <select id="selectNdbx2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('51303', '51302', '51301', '51291', '51281', '51271') and a.lac in ('22833')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <!--万达广场-->
+    <select id="selectNdwd4GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(countNum) as userCount2 from (select cell_name,count(*) as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德' and  w.eci
+        in ('110362628', '110393857', '110393858', '110393859', '110393866', '110393867', '110393868', '110393860', '110393861', '253320234', '253320236', '253247489', '253605648', '253605649', '253605650', '253605651', '253605652', '253605653', '253320232', '110414888', '110414889', '110414890', '110414891', '110414893', '110414894', '110414895', '110415656', '110415657', '110415658', '110415659', '110415668', '110415669', '110415670', '110415671', '110415672', '110415400', '34408807', '34408808', '34408809', '34408810', '110371368', '253307688', '253307689', '253307690', '110415144', '110415145', '110415146', '110415147', '110415148', '110415149', '110438184', '110438196', '110417192', '110417193', '110417194', '110417195', '110417196') group by w.eci,cell_name) t
+    </select>
+
+
+    <select id="selectNdwd2GUsercount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select sum(userCount)as userTotal from  (select count(*) as userCount from ${tableName}  a
+        inner join cell2g b on a.lac=b.lac and a.ci=b.ci where a.city_id='593'
+        and b.ci in('52121', '52122', '39389', '52124', '52125', '52126', '54354', '54311', '49892', '49891', '49881', '49876', '49875', '49874', '49867', '49863', '49862', '49861', '49851', '48621', '45751') and a.lac in ('22835','22833')
+        GROUP BY a.lac,b.ci) t
+
+    </select>
+
+
+    <select id="selectTop5xiaoqu4G" parameterType="java.lang.String" resultMap="BaseResultMap1">
+        select top 5 * from (select cell_name,count(*)  as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德'and county_name='蕉城区' group by cell_name  )t ORDER BY countNum desc
+
+    </select>
+
+    <select id="selectLow5xiaoqu4G" parameterType="java.lang.String" resultMap="BaseResultMap1">
+        select top 5 * from (select cell_name,count(*)  as countNum from ${tableName} w inner join cell4g  c on w.eci=c.eci where city_name='宁德'and county_name='蕉城区' group by cell_name  )t ORDER BY countNum asc
+
+    </select>
+
+
+
+
+
+</mapper>

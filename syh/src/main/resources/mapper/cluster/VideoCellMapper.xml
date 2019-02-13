@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.syh.dao.cluster.VideoCellDao">
+    <resultMap id="BaseResultMap" type="com.ygy.syh.domain.VideoCell">
+        <result column="label_cn" property="labelCn" jdbcType="VARCHAR"/>
+        <result column="imsi_cnt_sum" property="imsiCntSum" jdbcType="INTEGER"/>
+        <result column="total_flow_sum" property="totalFlowSum" jdbcType="NUMERIC"/>
+        <result column="waittime" property="waittime" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap1" type="com.ygy.syh.domain.Video">
+        <result column="label_cn" property="labelCn" jdbcType="VARCHAR"/>
+        <result column="date_id" property="dateId" jdbcType="INTEGER"/>
+        <result column="hour_id" property="hourId" jdbcType="VARCHAR"/>
+        <result column="total_flow" property="totalFlow" jdbcType="NUMERIC"/>
+        <result column="imsi_cnt" property="imsiCnt" jdbcType="BIGINT"/>
+        <result column="money" property="money" jdbcType="NUMERIC"/>
+        <result column="avgthrouputdl" property="avgthrouputdl" jdbcType="NUMERIC"/>
+        <result column="smooth_playback" property="smoothPlayback" jdbcType="NUMERIC"/>
+        <result column="succrate" property="succrate" jdbcType="NUMERIC"/>
+        <result column="waittime" property="waittime" jdbcType="NUMERIC"/>
+        <result column="play_durationrate" property="playDurationrate" jdbcType="NUMERIC"/>
+        <result column="pause_cnt" property="pauseCnt" jdbcType="NUMERIC"/>
+        <result column="play_durationavg" property="playDurationavg" jdbcType="NUMERIC"/>
+        <result column="http_suc" property="httpSuc" jdbcType="NUMERIC"/>
+        <result column="http_delay" property="httpDelay" jdbcType="NUMERIC"/>
+        <result column="maxrate" property="maxrate" jdbcType="VARCHAR"/>
+        <result column="bestrate" property="bestrate" jdbcType="VARCHAR"/>
+        <result column="tag" property="tag" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <!--<resultMap id="BaseResultMap2" type="com.ygy.syh.domain.VideoCell">-->
+        <!--<result column="imsi_cnt" property="imsiCnt" jdbcType="VARCHAR"/>-->
+        <!--<result column="total_flow" property="totalFlow" jdbcType="INTEGER"/>-->
+        <!--<result column="avgthrouputdl" property="avgthrouputdl" jdbcType="NUMERIC"/>-->
+        <!--<result column="waittime" property="waittime" jdbcType="NUMERIC"/>-->
+    <!--</resultMap>-->
+
+    <select id="selectTableByName" parameterType="java.lang.String" resultType="String">
+        SELECT table_name FROM information_schema.TABLES WHERE table_name =${tableName}
+    </select>
+    <select id="queryByVideoUser" resultMap="BaseResultMap" parameterType="java.lang.String">
+         select top 5 label_cn,sum(imsi_cnt)as imsi_cnt_sum from ${tableName} where related_city='宁德' and related_area='蕉城区'  group by label_cn order by imsi_cnt_sum desc
+
+    </select>
+    <select id="queryByVideoFlow" resultMap="BaseResultMap" parameterType="java.lang.String">
+       select top 5 label_cn,sum(total_flow) as total_flow_sum from ${tableName} where related_city='宁德' and related_area='蕉城区'
+            GROUP BY label_cn
+            order by total_flow_sum desc
+
+    </select>
+    <select id="queryByVideoWait" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select  DISTINCT(label_cn) as label_cn , waittime  from  ${tableName} where related_city='宁德' and related_area='蕉城区' and waittime is not null
+        order by waittime desc
+
+    </select>
+
+    <select id="queryByVideoZdqy" resultMap="BaseResultMap1" parameterType="java.lang.String">
+
+
+
+select (case when count(label_cn)&gt;0 then '宝信广场' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-456405-130', '460-00-456402-131', '460-00-28447-168', '460-00-28447-169', '460-00-28447-180', '460-00-28447-181', '460-00-220715-168', '460-00-220715-169', '460-00-220715-170', '460-00-220716-168', '460-00-220716-169', '460-00-220716-170', '460-00-220717-168', '460-00-220717-169', '460-00-220717-170', '460-00-220717-172', '460-00-220717-173', '460-00-220718-168', '460-00-220718-169', '460-00-989580-40', '460-00-989580-41') group by label_cn)t
+union
+
+select (case when count(label_cn)&gt;0 then '万达广场' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-431104-4', '460-00-431226-1', '460-00-431226-2', '460-00-431226-3', '460-00-431226-10', '460-00-431226-11', '460-00-431226-12', '460-00-431226-4', '460-00-431226-5', '460-00-989532-42', '460-00-989532-44', '460-00-989248-1', '460-00-990647-16', '460-00-990647-17', '460-00-990647-18', '460-00-990647-19', '460-00-990647-20', '460-00-990647-21', '460-00-989532-40', '460-00-431308-40', '460-00-431308-41', '460-00-431308-42', '460-00-431308-43', '460-00-431308-45', '460-00-431308-46', '460-00-431308-47', '460-00-431311-40', '460-00-431311-41', '460-00-431311-42', '460-00-431311-43', '460-00-431311-52', '460-00-431311-53', '460-00-431311-54', '460-00-431311-55', '460-00-431311-56', '460-00-431310-40', '460-00-134409-103', '460-00-134409-104', '460-00-134409-105', '460-00-134409-106', '460-00-431138-40', '460-00-989483-40', '460-00-989483-41', '460-00-989483-42', '460-00-431309-40', '460-00-431309-41', '460-00-431309-42', '460-00-431309-43', '460-00-431309-44', '460-00-431309-45', '460-00-431399-40', '460-00-431399-52', '460-00-431317-40', '460-00-431317-41', '460-00-431317-42', '460-00-431317-43', '460-00-431317-44') group by label_cn)t
+
+union
+
+select (case when count(label_cn)&gt;0 then '汽车北站' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-990678-16', '460-00-431445-1', '460-00-219973-146', '460-00-989456-40', '460-00-989456-41') group by label_cn)t
+
+union
+
+select (case when count(label_cn)&gt;0 then '汽车南站' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-159713-64', '460-00-159713-65', '460-00-990615-16', '460-00-990615-17', '460-00-990615-18', '460-00-431383-1', '460-00-431383-2', '460-00-431383-3', '460-00-457397-130', '460-00-28445-168', '460-00-989589-40', '460-00-431323-40', '460-00-431323-52') group by label_cn)t
+union
+
+select (case when count(label_cn)&gt;0 then '宁德动车站' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-431442-16', '460-00-431442-18', '460-00-431442-19', '460-00-431442-21', '460-00-431442-22', '460-00-431442-23', '460-00-28564-130', '460-00-28564-131', '460-00-28564-132', '460-00-28564-133', '460-00-221125-130', '460-00-221125-131', '460-00-221125-132', '460-00-431322-40', '460-00-431322-41', '460-00-431322-42', '460-00-431322-43', '460-00-431322-44', '460-00-431322-45') group by label_cn)t
+
+union
+
+select (case when count(label_cn)&gt;0 then '古田翠屏湖' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-989789-16', '460-00-989789-17', '460-00-989789-18', '460-00-27588-130', '460-00-27588-131', '460-00-27588-132', '460-00-431492-16', '460-00-431492-17', '460-00-431492-1', '460-00-991041-16', '460-00-991041-17', '460-00-991041-18', '460-00-28441-168') group by label_cn)t
+
+
+union
+
+select (case when count(label_cn)&gt;0 then '福鼎太姥山' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-158967-67', '460-00-158967-68', '460-00-158967-69', '460-00-159629-64', '460-00-159629-65', '460-00-159629-66', '460-00-220290-145', '460-00-220290-146', '460-00-457306-130', '460-00-457306-131', '460-00-990954-16', '460-00-990954-17', '460-00-990954-18', '460-00-1019822-16', '460-00-1019822-17', '460-00-1019822-18', '460-00-1019822-19', '460-00-1019821-17', '460-00-457309-130', '460-00-457309-131', '460-00-27993-130', '460-00-27993-131', '460-00-431167-16', '460-00-431167-17', '460-00-990843-16', '460-00-990843-17', '460-00-456172-130', '460-00-456172-131', '460-00-220064-145', '460-00-220064-146', '460-00-456318-130', '460-00-456318-131', '460-00-456318-132', '460-00-220589-145', '460-00-220589-146', '460-00-457305-130', '460-00-457305-131', '460-00-457287-130', '460-00-457287-131', '460-00-457300-130', '460-00-457300-131', '460-00-457303-130', '460-00-457303-131', '460-00-457304-130', '460-00-457304-131', '460-00-990585-16', '460-00-990585-17', '460-00-456295-130', '460-00-456295-131', '460-00-456295-132', '460-00-431280-16', '460-00-431280-17', '460-00-431280-18', '460-00-431280-19', '460-00-431280-20', '460-00-431280-21', '460-00-431281-16', '460-00-431281-17', '460-00-431281-18', '460-00-456317-130', '460-00-456317-131', '460-00-456317-132', '460-00-28051-130', '460-00-28051-131', '460-00-431411-16', '460-00-431411-17', '460-00-431412-16', '460-00-990029-16', '460-00-990031-16', '460-00-990031-17', '460-00-431854-16', '460-00-431854-17', '460-00-431854-18', '460-00-431410-16', '460-00-431410-17', '460-00-990030-16', '460-00-990030-17', '460-00-990030-18', '460-00-990029-17', '460-00-431413-16', '460-00-431413-17', '460-00-431413-18') group by label_cn)t
+
+
+union
+
+select (case when count(label_cn)&gt;0 then '柘荣东狮山' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-159734-67', '460-00-159734-70', '460-00-159177-70', '460-00-456116-130', '460-00-456116-132', '460-00-456116-133', '460-00-456111-130', '460-00-431739-16', '460-00-431739-17', '460-00-221121-168', '460-00-220819-168') group by label_cn)t
+
+
+union
+
+select (case when count(label_cn)&gt;0 then '周宁鲤鱼溪' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-159077-64', '460-00-159077-65', '460-00-159077-66', '460-00-159096-64', '460-00-159096-65', '460-00-159096-66', '460-00-431590-16', '460-00-431590-17', '460-00-990380-16', '460-00-990380-17', '460-00-990380-18', '460-00-431428-16', '460-00-431428-17', '460-00-431428-18', '460-00-431428-19', '460-00-431428-20', '460-00-431428-21', '460-00-456606-130', '460-00-27723-130', '460-00-27723-131', '460-00-27723-132') group by label_cn)t
+
+
+union
+
+select (case when count(label_cn)&gt;0 then '屏南白水洋' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-159271-64', '460-00-159271-65', '460-00-431499-16', '460-00-431499-17', '460-00-431499-18', '460-00-431499-1', '460-00-431498-16', '460-00-431498-17', '460-00-431497-16', '460-00-431497-17', '460-00-431497-3', '460-00-431497-1', '460-00-431497-2', '460-00-431424-16', '460-00-431424-17', '460-00-431424-18', '460-00-431424-4', '460-00-221119-145', '460-00-221119-146', '460-00-221120-145', '460-00-221120-146', '460-00-221109-145', '460-00-221109-146', '460-00-990942-16', '460-00-27699-130', '460-00-27699-131', '460-00-27699-132', '460-00-221107-145', '460-00-221107-146', '460-00-221107-147', '460-00-28518-130', '460-00-28518-131', '460-00-431502-16', '460-00-431502-17', '460-00-431502-18', '460-00-431502-19', '460-00-431500-16', '460-00-431500-17', '460-00-431501-16', '460-00-431501-17', '460-00-431501-1', '460-00-431356-40', '460-00-431356-41', '460-00-431402-40') group by label_cn)t
+
+union
+
+select (case when count(label_cn)&gt;0 then '霞浦北岐' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-431426-16', '460-00-431426-17', '460-00-431426-18', '460-00-990326-16', '460-00-990326-17', '460-00-990349-16', '460-00-990349-17', '460-00-990349-18') group by label_cn)t
+
+union
+
+select (case when count(label_cn)&gt;0 then '万达嘉华酒店' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-220899-129', '460-00-220899-130', '460-00-220899-131', '460-00-220899-132', '460-00-431104-1', '460-00-431104-2', '460-00-431104-3', '460-00-431104-10', '460-00-431104-8', '460-00-431104-7', '460-00-431104-4', '460-00-431104-4', '460-00-431104-5', '460-00-431104-5', '460-00-431226-1', '460-00-431226-2', '460-00-431226-3', '460-00-431226-10', '460-00-431226-11', '460-00-431226-12', '460-00-990647-16', '460-00-990647-17', '460-00-990647-18', '460-00-990647-19', '460-00-990647-20', '460-00-990647-21', '460-00-431309-40', '460-00-431309-41', '460-00-431309-42', '460-00-431309-43', '460-00-431309-44', '460-00-431309-45', '460-00-431399-40', '460-00-431399-52', '460-00-431317-40', '460-00-431317-41', '460-00-431317-42', '460-00-431317-43', '460-00-431317-44', '460-00-431197-1', '460-00-431197-2') group by label_cn)t
+
+
+union
+
+select (case when count(label_cn)&gt;0 then '霞浦北岐' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-431426-16', '460-00-431426-17', '460-00-431426-18', '460-00-990326-16', '460-00-990326-17', '460-00-990349-16', '460-00-990349-17', '460-00-990349-18') group by label_cn)t
+
+union
+
+select (case when count(label_cn)&gt;0 then '美伦酒店' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-431326-40', '460-00-431326-41', '460-00-219967-129', '460-00-219967-130', '460-00-219967-131') group by label_cn)t
+
+union
+
+select (case when count(label_cn)&gt;0 then '金海湾酒店' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-990849-40', '460-00-990849-41') group by label_cn)t
+
+union
+
+select (case when count(label_cn)&gt;0 then '华尔道夫酒店' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-990573-16', '460-00-990573-17', '460-00-990573-18', '460-00-431216-1', '460-00-431216-2', '460-00-431216-3', '460-00-431216-4', '460-00-431216-5', '460-00-431314-40', '460-00-431314-41', '460-00-431314-42') group by label_cn)t
+
+
+union
+
+select (case when count(label_cn)&gt;0 then '三都澳迎宾馆' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-989445-16', '460-00-989445-17', '460-00-431339-40', '460-00-431339-41', '460-00-431339-42', '460-00-431339-43') group by label_cn)t
+
+union
+
+select (case when count(label_cn)&gt;0 then '闽东酒店' else 'qt' end )as label_cn,sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+('460-00-28444-168', '460-00-28552-130') group by label_cn)t
+
+    </select>
+
+
+
+
+    <select id="queryByVideoFaat" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-991131-16', '460-00-991131-17', '460-00-991131-18', '460-00-220300-130', '460-00-220300-131', '460-00-220300-132', '460-00-220300-133', '460-00-220300-134', '460-00-220300-135', '460-00-28260-130', '460-00-28260-131', '460-00-28260-132') group by label_cn)t
+
+    </select>
+
+    <select id="queryByVideoFatyg" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-219926-145', '460-00-219926-146', '460-00-219926-147', '460-00-219926-148', '460-00-219926-149', '460-00-431447-1', '460-00-431447-2', '460-00-431447-3', '460-00-990702-1', '460-00-990702-2', '460-00-990702-3', '460-00-219998-130', '460-00-219998-131', '460-00-219998-132', '460-00-219998-133', '460-00-219998-134'
+
+        ) group by label_cn)t
+
+    </select>
+
+    <select id="queryByVideoFayz" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-989364-16', '460-00-989364-17', '460-00-989364-18'
+        ) group by label_cn)t
+
+    </select>
+
+    <select id="queryByVideoFdymqg" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-989747-1', '460-00-989747-2', '460-00-990726-16', '460-00-990726-17', '460-00-990726-18', '460-00-28298-130', '460-00-28298-131', '460-00-28298-132', '460-00-990728-1', '460-00-990728-2', '460-00-990728-3'
+        ) group by label_cn)t
+
+    </select>
+
+
+    <select id="queryByVideoGtcphs" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-431492-16', '460-00-431492-17', '460-00-431492-1', '460-00-991040-16', '460-00-991040-17', '460-00-991040-18', '460-00-456159-130', '460-00-456159-131', '460-00-989373-16', '460-00-989373-17', '460-00-989373-18', '460-00-989790-16', '460-00-989790-17', '460-00-989790-18'
+        ) group by label_cn)t
+
+    </select>
+
+
+
+
+    <select id="queryByVideoNdtyzx" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-220460-130', '460-00-220460-132', '460-00-990583-16', '460-00-990583-17', '460-00-990583-18', '460-00-431388-1', '460-00-431388-2', '460-00-431388-3', '460-00-28551-130', '460-00-28551-130', '460-00-28551-131', '460-00-431238-1', '460-00-431238-2', '460-00-431238-3'
+        ) group by label_cn)t
+
+    </select>
+
+
+    <select id="queryByVideoNdxsy" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-990632-16', '460-00-990632-17', '460-00-990632-18', '460-00-990632-19', '460-00-990632-20', '460-00-990632-21', '460-00-431215-1', '460-00-431215-2', '460-00-431215-3', '460-00-431215-5', '460-00-431215-6', '460-00-431215-9', '460-00-989309-40', '460-00-989309-41', '460-00-989319-1', '460-00-989319-2', '460-00-989319-5'
+        ) group by label_cn)t
+
+    </select>
+
+
+    <select id="queryByVideoNdwz" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-431225-1', '460-00-431225-2', '460-00-431225-3', '460-00-457397-130', '460-00-457397-131', '460-00-457397-132', '460-00-456621-130', '460-00-456621-131', '460-00-456621-132', '460-00-456621-133', '460-00-456621-134', '460-00-456621-135', '460-00-990490-16', '460-00-990490-17', '460-00-990490-18', '460-00-456624-130', '460-00-456624-131', '460-00-456624-132'
+         ) group by label_cn)t
+
+    </select>
+
+    <select id="queryByVideoPnbyc" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-456434-130', '460-00-456434-131', '460-00-989383-16', '460-00-989383-17', '460-00-989383-18'
+         ) group by label_cn)t
+
+    </select>
+
+    <select id="queryByVideoPnyz" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-456443-130', '460-00-456443-131', '460-00-456443-132', '460-00-220881-145', '460-00-220881-146'
+        ) group by label_cn)t
+
+    </select>
+
+
+    <select id="queryByVideoSntyg" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-431465-16', '460-00-431465-17', '460-00-990596-16', '460-00-990596-17', '460-00-990596-18' ) group by label_cn)t
+
+    </select>
+
+    <select id="queryByVideoXpglst" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-431427-16', '460-00-431427-17', '460-00-431427-18', '460-00-220546-145', '460-00-220546-146', '460-00-220546-147', '460-00-27794-130', '460-00-27794-131', '460-00-27794-132'
+         ) group by label_cn)t
+
+    </select>
+
+
+    <select id="queryByVideoXpstpqg" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-456456-130', '460-00-456456-131', '460-00-847417-16', '460-00-847417-17', '460-00-847417-18', '460-00-847417-1', '460-00-847417-2', '460-00-847417-3', '460-00-990234-16', '460-00-990234-17', '460-00-990234-18', '460-00-220526-145', '460-00-220526-146', '460-00-220526-147', '460-00-847484-16', '460-00-847484-17', '460-00-847484-18'
+         ) group by label_cn)t
+
+    </select>
+
+    <select id="queryByVideoXpyyg" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-847418-16', '460-00-847418-17', '460-00-847418-18', '460-00-456909-130', '460-00-456909-131', '460-00-456909-132'
+         ) group by label_cn)t
+
+    </select>
+    <select id="queryByVideoZrtyg" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-989595-16', '460-00-989595-17', '460-00-989595-18', '460-00-989595-1', '460-00-989595-1', '460-00-989595-1', '460-00-989595-1', '460-00-990023-16', '460-00-990023-17', '460-00-431734-16', '460-00-431734-17', '460-00-431734-18', '460-00-431734-1', '460-00-431734-3', '460-00-431734-2'
+        ) group by label_cn)t
+
+    </select>
+
+    <select id="queryByVideoZntyg" resultMap="BaseResultMap1" parameterType="java.lang.String">
+        select sum(imsi_cnt) as imsi_cnt,sum(total_flow)as total_flow ,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl
+        from (select label_cn,sum(imsi_cnt)as imsi_cnt ,sum(total_flow) as total_flow,(sum(avgthrouputdl)/count(avgthrouputdl)) as avgthrouputdl from ${tableName}  where related_city='宁德' and ci in
+        ('460-00-989614-16', '460-00-989614-17', '460-00-989614-18', '460-00-27723-130', '460-00-27723-131', '460-00-27723-132'
+        ) group by label_cn)t
+
+    </select>
+
+
+
+
+
+
+</mapper>

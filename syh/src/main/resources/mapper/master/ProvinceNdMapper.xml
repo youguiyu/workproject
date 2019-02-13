@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.syh.dao.master.ProvinceNdDao">
+    <resultMap id="BaseResultMap" type="com.ygy.syh.domain.ProvinceNd">
+        <result column="user_city" property="userCity" />
+        <result column="city_name" property="cityName" />
+        <result column="user_count" property="userCount" />
+    </resultMap>
+
+
+
+    <select id="queryBy4GTime" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select user_city,city_name,count(*) as user_count from
+        (select date_id,imsi,case when city_id='591' then '福州' when city_id='592' then '厦门' when city_id='593' then '宁德' when city_id='594' then '莆田'
+        when city_id='595' then '泉州' when city_id='596' then '漳州' when city_id='597' then '龙岩' when city_id='598' then '三明' else '南平' end as user_city,
+        city_name,county_name,cell_name,eci,ci
+        from (
+        select a.date_id,a.imsi,a.city_id,b.city_name,b.county_name,b.ci,b.eci,b.cell_name
+        from (select * from ${tableName} where city_id  like '59%'  ) a
+        inner join cell4g b
+        on a.eci=b.eci)c) w where city_name='宁德' GROUP BY user_city , city_name
+
+    </select>
+
+    <select id="queryBy2GTime" resultMap="BaseResultMap" parameterType="java.lang.String">
+       select user_city,city_name,count(*) as user_count from
+        (select date_id,imsi,case when city_id='591' then '福州' when city_id='592' then '厦门' when city_id='593' then '宁德' when city_id='594' then '莆田'
+        when city_id='595' then '泉州' when city_id='596' then '漳州' when city_id='597' then '龙岩' when city_id='598' then '三明' else '南平' end as user_city,
+        city_name,county_name,cell_name,lac,ci
+        from (select a.date_id,a.imsi,a.city_id,b.city_name,b.county_name,b.ci,b.lac,b.cell_name
+        from (select * from ${tableName} where city_id  like '59%') a
+        inner join cell2g b
+        on a.lac=b.lac and a.ci=b.ci)c ) w where city_name='宁德' GROUP BY user_city , city_name
+    </select>
+
+</mapper>

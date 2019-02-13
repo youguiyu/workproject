@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.syh.dao.wlw.WlwLinkApnMapper" >
+    <resultMap id="BaseResultMap" type="com.ygy.syh.domain.wlw.WlwLinkApn" >
+
+        <result column="date_id" property="dateId" jdbcType="INTEGER" />
+        <result column="up_down_type" property="upDownType" jdbcType="VARCHAR" />
+        <result column="apn_cnt" property="apnCnt" jdbcType="INTEGER" />
+
+    </resultMap>
+    <sql id="Base_Column_List" >
+        date_id,up_down_type,apn_cnt
+    </sql>
+
+    <select id="findWlwLinkApnByDate" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from f_cmcc_wlw_link_apn_cjj where date_id=#{yesDate}
+    </select>
+
+
+</mapper>

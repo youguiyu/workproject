@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+	<title>省运会保障视图</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="./static/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<script type="text/javascript" src="./static/js/jquery-1.8.1.min.js"></script>
+
+	<link href="./static/css/base.css" rel="stylesheet" type="text/css">
+	<link href="./static/css/index.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="bodyCss">
+
+<!-- Carousel
+  ================================================== data-ride="carousel"-->
+<div id="myCarousel" class="carousel slide" >
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+	</ol>
+	<div class="carousel-inner" role="listbox">
+		<div class="item active">
+
+			<div class="mainCss">
+				<a id="switch_btn1"  href="javascript:sildTap11();"></a>
+				<div id="syhjxw"></div>
+				<div id="syhjhw"></div>
+				<header>
+					福建省第16届运动会网络保障
+					<span id=localtime style=" font-size:14px; position: absolute; right: 30px; top:-20px; "></span>
+				</header>
+				<div id="content">
+					<div class="content_left">
+						<div class="dtuplc">
+							<div class="row">
+								<div class="col-md-5">&nbsp;</div>
+							</div>
+							<div class="row" id="rowsty">
+
+								<div class="col-md-4">
+									<div class="settings-box">
+										<p><img src="./static/images/teacher_icon.png" alt="">今日值班：<span id="name_a">范林平</span><span id="date_a">13809560058</span></p>
+										<p><img src="./static/images/people_iocn.png" alt="">负责人：<span id="lea_a">周少山</span><span >13859660153</span></p>
+									</div>
+								</div>
+
+
+								<div class="col-md-2">
+									<div class="weather-box">
+										<div class="data">
+											<p class="time" id="time">00:00:00</p>
+											<p id="date"></p>
+										</div>
+									</div>
+
+									<div class="weather-box">
+										<div class="data">
+											<p class="time1" id="time1">倒计时：1天</p>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-4">
+									<div class="weather-box1">
+										<div class="data">
+											<p class="time2" id="renliuq">全国->宁德：</p>
+										</div>
+									</div>
+
+									<div class="weather-box1">
+										<div class="data">
+											<p class="time2" id="renlius">全省->宁德：</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+
+						</div>
+						<!--
+							DTU和PLC完
+						-->
+						<div class="online">
+							<div class="main_table t_btn8">
+								<table>
+									<thead>
+									<tr>
+										<th>用户情况TOP5区域</th>
+										<th>质差情况TOP5小区</th>
+									</tr>
+									</thead>
+									<tbody id="tbContent">
+
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+						<div class="industry">
+							<div id="chart_5" class="echart fl" style="width:50%;height: 100%"></div>
+							<div id="jinquMapContent" style="width:50%;height: 100%">
+								<div id="imgTab">
+									<div id="myCarouselt" class="carousel slide" data-ride="carousel">
+										<!-- Indicators -->
+										<ol class="carousel-indicators">
+											<li data-target="#myCarouselt" data-slide-to="0" class="active"></li>
+											<li data-target="#myCarouselt" data-slide-to="1"></li>
+											<li data-target="#myCarouselt" data-slide-to="2"></li>
+										</ol>
+										<div class="carousel-inner"  role="listbox">
+											<div class="item active">
+												<img id="img1" src="./static/images/jingqu/tms/1.jpg" width="100%" height="100%" />
+
+											</div>
+											<div class="item">
+												<img id="img2" src="./static/images/jingqu/tms/2.jpg" width="100%" height="100%" />
+
+											</div>
+											<div class="item">
+												<img id="img3" src="./static/images/jingqu/tms/3.jpg" width="100%" height="100%" />
+
+											</div>
+
+										</div>
+
+									</div>
+
+								</div>
+								<div id="imgTabContent">
+									<span id="spncon1">太姥山位于福建省东北部，在福鼎市正南距市区四十五公里，约在东经120度与北纬27度的附近。挺立于东海之滨，三面临海，一面背山。主峰海拔917.3米 </span>
+									<br>
+									<span id="spncon2">2G用户数：2000人次；4G用户数：4000人次。</span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="content_center">
+						<div  class="center_top" id="centerTop">
+							<a id="switch_btn"  href="javascript:sildTap1();"></a>
+							<div id="chartChina"></div>
+							<div id="chartMap"></div>
+
+						</div>
+
+
+
+					</div>
+					<div class="content_right">
+						<div class="report">
+							<div class="sun-title"><span class="">重点区域人流情况</span></div>
+							<div class="notice">
+								<ul id="ulContent">
+
+								</ul>
+							</div>
+						</div>
+						<div class="news_report">
+							<div class="sun-title"><span class="">当前时段酒店人流量</span></div>
+							<div id="ec4" >
+
+							</div>
+						</div>
+						<div class="data_box">
+							<div id="chart_4" class="echart fl" style="width:40%;height: 100%"></div>
+							<div id="jinquMapContent1" style="width:60%;height: 100%">
+								<div id="imgTab1">
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+</div><!-- /.carousel -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./static/js/jquery.min.js"></script>
+<script src="./static/dist/js/bootstrap.min.js"></script>
+
+<script src="./static/js/echarts.min.js"></script>
+<script src="./static/js/dataTool.js"></script>
+<script src="./static/js/china.js"></script>
+<script src="./static/js/fujian.js"></script>
+<script src="./static/js/ningde.js"></script>
+<script src="./static/js/rem.js"></script>
+
+<!--<script type="text/javascript" src="./static/js/main.js"></script>-->
+<script type="text/javascript" src="./static/js/main.js"></script>
+
+</body>
+
+</html>

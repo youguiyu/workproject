@@ -1,0 +1,337 @@
+.main_table tr{
+	height: 42px;
+}
+
+.main_table{
+	width: 100%;
+	margin-top: 25px;
+}
+
+.main_table table{
+	width: 90%;
+	margin-left: 5%;
+}
+
+.main_table thead tr{
+	height: 42px;
+}
+
+
+.main_table th{
+	font-size: 12px;
+	font-weight: 600;
+	color:#61d2f7;
+	text-align: center;
+}
+
+.main_table th:nth-child(1){
+
+}
+
+.main_table th:nth-child(2){
+
+}
+
+
+.main_table td{
+	color:#fff;
+	font-size: 10px;
+	text-align: center;
+}
+
+
+.main_table tbody tr:nth-child(1),
+.main_table tbody tr:nth-child(3),
+.main_table tbody tr:nth-child(5){
+	background-color: #072951;
+	box-shadow:-10px 0px 15px #2C58A6 inset,   /*左边阴影*/
+	10px 0px 15px #2C58A6 inset;  /*右边阴影*/
+}
+
+.t_btn8,.t_btn2,.t_btn3{
+	position: inherit;
+	z-index: 100;
+	cursor: pointer;
+}
+
+
+/*时间框*/
+.weather-box {
+	 width: 3.3rem;
+	 height: 1.4rem;
+	 display: flex;
+	 flex-flow: row nowrap;
+	 justify-content: space-around;
+	 align-items: center;
+
+ }
+
+.weather-box1 {
+	width: 4.4rem;
+	height: 1.4rem;
+	padding-left: 1.3rem;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: center;
+
+}
+.weather-box1>.data {
+	padding-top:0.2rem;
+	width: 3.3rem;
+	height: 1rem;
+	border: 1px dotted #F0FF00;
+	border-radius: 5px;
+}
+.weather-box>.data {
+	padding-top:0.2rem;
+	width: 2.19rem;
+	height: 1rem;
+	 border: 1px dotted #F0FF00;
+    border-radius: 5px;
+}
+
+.data>p {
+	font-size: 0.16rem;
+	margin: 0 5px;
+	color: #cdddf7;
+	text-align: center;
+	margin: 0;
+}
+
+.data>p>span {
+	margin: 0 5px;
+}
+
+.data>p.time {
+	font-size: 0.42rem;
+	height: 0.42rem;
+	line-height: 0.42rem;
+}
+
+.data>p.time1 {
+	font-size: 0.35rem;
+	height: 0.42rem;
+	line-height: 0.42rem;
+}
+.data>p.time2 {
+	font-size: 0.28rem;
+	height: 0.42rem;
+	line-height: 0.42rem;
+}
+.weather-box>.weather {
+	width: 1.8rem;
+	height: 0.65rem;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: center;
+	margin-left: 10px;
+}
+
+.weather>img {
+	height: 100%;
+}
+
+.weather>div {
+	width: 0.8rem;
+	height: 100%;
+}
+
+.weather>div>p {
+	font-size: 0.12rem;
+	color: #cdddf7;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 0.24rem;
+	line-height: 0.24rem;
+}
+
+.weather>div>p.active {
+	color: white;
+	font-size: 0.16rem;
+}
+
+.dtuplc>p {
+	color: #cdddf7;
+	font-size: 0.26rem;
+	margin-bottom: 0.5rem;
+	padding-left: 1rem;
+	height: 0.22rem;
+	line-height: 0.22rem;
+}
+
+.sun-title {
+	background: url(../images/2-1.png) no-repeat;
+	-moz-background-size: 80% 80%;
+	background-size: 80% 80%;
+	margin-top:3%;
+	margin-left:5%;
+}
+
+.sun-title
+{
+	height: 0.4rem;
+	line-height: 0.4rem;
+	padding-left: 0.1rem;
+	font-size: 0.16rem;
+	font-weight:normal;
+}
+
+
+#ec4{
+	width:90%;
+	height:80%;
+}
+
+
+#chart_1{
+	width:90%;
+	height:80%;
+}
+
+
+#switch_btn{
+    background-image: url(../images/4-1.png);
+    width:0.8rem;
+    height:0.8rem;
+    position:absolute;
+    top:12%;
+    left:50%;
+    z-index: 9999;
+    background-size: cover;
+
+}
+
+
+#switch_btn1{
+	background-image: url(../images/4-1.png);
+	width:0.8rem;
+	height:0.8rem;
+	position:absolute;
+	top:1%;
+	left:98%;
+	z-index: 9999;
+	background-size: cover;
+
+}
+
+#syhjxw{
+	background-image: url(../images/jxw.png);
+	width:2rem;
+	height:2rem;
+	position:absolute;
+	top:0%;
+	left:4%;
+	z-index: 9999;
+	background-size: cover;
+
+}
+#syhjhw{
+	background-image: url(../images/jxw.png);
+	width:2rem;
+	height:2rem;
+	position:absolute;
+	top:0%;
+	left:92%;
+	z-index: 9999;
+	background-size: cover;
+
+}
+.iframecss{
+	z-index:-2000;
+	margin-left:3%;
+	margin-top:0.5%;
+}
+
+.settings-box {
+	box-sizing: border-box;
+	width: 3.5rem;
+	height: 2.7rem;
+	margin-left: 0.2rem;
+	padding-top: 0.2rem;
+	color: white;
+	font-size: 0.18rem;
+	overflow: hidden;
+	border: 1px dotted #F0FF00;
+	border-radius: 5px;
+}
+
+.settings-box>p {
+    color: #cdddf7;
+    margin-bottom: 0.46rem;
+    padding-left: 0.4rem;
+	padding-top: 0.4rem;
+    height: 0.22rem;
+    line-height: 0.22rem;
+}
+
+
+#imgTab{
+	width: 80%;
+	height: 53%;
+	margin-top: 0.2rem;
+	margin-left: 0.4rem;
+}
+#imgTabContent{
+	width: 80%;
+	height: 30%;
+	margin-top: 0.6rem;
+	margin-left: 0.4rem;
+}
+#imgTab1{
+	width: 90%;
+	height: 100%;
+	margin-top: 0.2rem;
+	margin-left: 0.4rem;
+}
+
+
+#rowsty{
+	padding-top: 0.4rem;
+}
+
+
+.notice {
+	height: 2.5rem;/*固定公告栏显示区域的高度*/
+	padding: 0.05rem 0.1rem;
+	overflow: hidden;
+}
+
+.notice ul li {
+	list-style: none;
+	line-height: 0.35rem;
+	/*以下为了单行显示，超出隐藏*/
+	display: block;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.notice ul li {
+	/* height: 30px; */
+	line-height: 30px;
+	border-bottom: 1px solid rgba(67,104,199,.2);
+	color: #3690ff;
+}
+.litext{
+	display: inline-block;
+	vertical-align:middle;
+	width:60%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: rgba(255,255,255,.7);
+	padding: 0 24px;
+}
+.litext hover{
+	display: inline-block;
+	vertical-align:middle;
+	width:60%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: rgba(255,255,255,.7);
+	padding: 0 24px;
+}

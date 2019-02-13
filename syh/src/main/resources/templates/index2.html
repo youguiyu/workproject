@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+	<title>省运会保障视图</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="./static/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<script type="text/javascript" src="./static/js/jquery-1.8.1.min.js"></script>
+
+	<link href="./static/css/base.css" rel="stylesheet" type="text/css">
+	<link href="./static/css/index.css" rel="stylesheet" type="text/css">
+	<link href="./static/css/index2.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="bodyCss">
+
+<!-- Carousel
+  ================================================== data-ride="carousel"-->
+<div id="myCarousel" class="carousel slide" >
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+	</ol>
+	<div class="carousel-inner" role="listbox">
+
+		<div class="item active">
+			<div class="content1">
+				<a id="switch_btn11"  href="javascript:sildTap111();"></a>
+				<div class="content_left">
+					<div class="data-box1 clearfix">
+						<i class="topL"></i>
+						<i class="topR"></i>
+						<i class="bottomL"></i>
+						<i class="bottomR"></i>
+						<div class="data-title">
+							<b class="data-title-left">[</b>
+							<span>视频TOP5业务
+							</span>
+							<b class="data-title-right">]</b>
+						</div>
+						<div class="main_table t_btn8">
+							<table>
+								<thead>
+								<tr>
+									<th>视频业务用户情况TOP5小区</th>
+									<th>视频业务流量TOP5小区</th>
+									<th>视频业务播放不流畅TOP5小区</th>
+								</tr>
+								</thead>
+								<tbody id="tbContent1">
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+					<div class="data-box1 clearfix">
+						<i class="topL"></i>
+						<i class="topR"></i>
+						<i class="bottomL"></i>
+						<i class="bottomR"></i>
+						<div class="data-title">
+							<b class="data-title-left">[</b>
+							<span>比赛场地视频使用情况</span>
+							<b class="data-title-right">]</b>
+						</div>
+
+						<div id="chart_4" class="echart fl" style="width:35%;height: 100%"></div>
+
+
+						<div id="jinquMapContent1" style="width:65%;height: 100%">
+
+						</div>
+
+					</div>
+
+					<div class="data-box1 clearfix">
+						<i class="topL"></i>
+						<i class="topR"></i>
+						<i class="bottomL"></i>
+						<i class="bottomR"></i>
+						<div class="data-title">
+							<b class="data-title-left">[</b>
+							<span>重点区域视频情况</span>
+							<b class="data-title-right">]</b>
+						</div>
+						<div class="page-box14" id="crollWarn5"><ul style="margin-top: 0px;"><li><div class="page-box222"><h5>HJMEDIA.FJ&nbsp;:&nbsp;XDR数量最多</h5></div></li><li>	<div class="page-box222">		<h5>FJEP.FJ&nbsp;:&nbsp;用户数最多</h5>	</div></li><li>	<div class="page-box222">		<h5>QZWXDS.FJ&nbsp;:&nbsp;流量最多</h5></div></li><li><div class="page-box222">	<h5>QZWXDS.FJ&nbsp;:&nbsp;频度最高</h5></div></li><li><div class="page-box222">	<h5>FJSWGPRS.FJ&nbsp;:&nbsp;每用户包大小最大</h5></div></li></ul></div>
+
+					</div>
+				</div>
+				<div class="content_center">
+
+					<div class="data-box2 clearfix">
+						<i class="topL"></i>
+						<i class="topR"></i>
+						<i class="bottomL"></i>
+						<i class="bottomR"></i>
+
+						<iframe class="iframecss1" src="http://10.48.190.202:8010/renliu_nd_pt/gis_video_down.aspx" frameborder="no" border="0" marginwidth="0" marginheight="0" allowtransparency="true" scrolling="no"  width="99%" height="99%"></iframe>
+
+
+					</div>
+
+
+				</div>
+				<div class="content_right">
+					<div class="data-box1 clearfix">
+						<i class="topL"></i>
+						<i class="topR"></i>
+						<i class="bottomL"></i>
+						<i class="bottomR"></i>
+						<div class="data-title">
+							<b class="data-title-left">[</b>
+							<span>物联网</span>
+							<b class="data-title-right">]</b>
+						</div>
+						<div class="page-box1">全省规模</div>
+						<div class="page-box12" id="page-box11"><div class="page-box22"><h4>信息交互:128个</h4></div><div class="page-box33">	<h4>固定上报:196个</h4></div><div class="page-box44">	<h4>下载型:122个</h4></div><div class="page-box55"><h4>GRE隧道:168个</h4></div></div>
+						<div class="page-box1">APN业务量占比呈现</div>
+						<div class="page-box13" id="page-box11"><div id="gauge1" _echarts_instance_="ec_1539832957623" style="-webkit-tap-highlight-color: transparent; user-select: none;"><div style="position: relative; overflow: hidden; width: 138px; height: 171px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="138" height="171" style="position: absolute; left: 0px; top: 0px; width: 138px; height: 171px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div><div id="gauge2" _echarts_instance_="ec_1539832957624" style="-webkit-tap-highlight-color: transparent; user-select: none;"><div style="position: relative; overflow: hidden; width: 138px; height: 171px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="138" height="171" style="position: absolute; left: 0px; top: 0px; width: 138px; height: 171px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div><div id="gauge3" _echarts_instance_="ec_1539832957625" style="-webkit-tap-highlight-color: transparent; user-select: none;"><div style="position: relative; overflow: hidden; width: 138px; height: 171px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="138" height="171" style="position: absolute; left: 0px; top: 0px; width: 138px; height: 171px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div><div id="gauge-text">	<h5>业务量占比最大的APN为通用CMIOT</h5></div></div>
+					</div>
+
+					<div class="data-box1 clearfix">
+						<i class="topL"></i>
+						<i class="topR"></i>
+						<i class="bottomL"></i>
+						<i class="bottomR"></i>
+						<div class="data-title">
+							<b class="data-title-left">[</b>
+							<span>全省物联网附着次数</span>
+							<b class="data-title-right">]</b>
+						</div>
+
+						<div class="page-box-zy">  <div class="page-box-nn">	<h3>全省物联网附着次数 :1203.5 万次</h3></div> <div id="gauge4" _echarts_instance_="ec_1539834796754" style="-webkit-tap-highlight-color: transparent; user-select: none;"><div style="position: relative; overflow: hidden; width: 552px; height: 268px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="552" height="268" style="position: absolute; left: 0px; top: 0px; width: 552px; height: 268px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div> <div id="gauge5" _echarts_instance_="ec_1539834796755" style="-webkit-tap-highlight-color: transparent; user-select: none;"><div style="position: relative; overflow: hidden; width: 552px; height: 268px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="552" height="268" style="position: absolute; left: 0px; top: 0px; width: 552px; height: 268px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>  <div id="gauge6" _echarts_instance_="ec_1539834796756" style="-webkit-tap-highlight-color: transparent; user-select: none;"><div style="position: relative; overflow: hidden; width: 548px; height: 268px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="548" height="268" style="position: absolute; left: 0px; top: 0px; width: 548px; height: 268px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>  <div id="gauge7" _echarts_instance_="ec_1539834796757" style="-webkit-tap-highlight-color: transparent; user-select: none;"><div style="position: relative; overflow: hidden; width: 548px; height: 268px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="548" height="268" style="position: absolute; left: 0px; top: 0px; width: 548px; height: 268px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div></div>
+
+					</div>
+
+					<div class="data-box1 clearfix">
+						<i class="topL"></i>
+						<i class="topR"></i>
+						<i class="bottomL"></i>
+						<i class="bottomR"></i>
+						<div class="data-title">
+							<b class="data-title-left">[</b>
+							<span>省内特色行业</span>
+							<b class="data-title-right">]</b>
+						</div>
+						<div class="page-box-r">
+							<div class="page-box-nw" id="scrollWarn2"><ul style="margin-top: -8.49396px;"><li class="jiacu">福建水文局（FJSWGPRS.FJ）</li><li>用户0.12万个；流量1.63GB；XDR872.48万条；涉及全省九地市。</li><li></li><li class="jiacu">福建银联（FJYL.FJ）：</li><li>用户0.07万个；流量0.09GB；XDR6.93万条；涉及全省九地市。</li><li></li><li class="jiacu">福建省电力（FJEP.FJ）：</li><li>用户13.89万个；流量57.20GB；XDR3112.94万条；涉及全省九地市。</li><li></li><li class="jiacu">福建省公共交通（FJMYGJ.FJ）:</li><li>用户0.01万个；流量0.27GB；XDR13.52万条；涉及全省九地市。</li><li></li><li class="jiacu">福建省公安（FJGA.FJ）：</li><li>用户0.19万个；流量9.81GB；XDR388.31万条；涉及全省九地市。</li><li></li></ul></div>
+
+						</div>
+					</div>
+				</div>
+				<div class="content_right">
+					<div class="data-box11 clearfix" id="wlwztgm">
+						<i class="topL"></i>
+						<i class="topR"></i>
+						<i class="bottomL"></i>
+						<i class="bottomR"></i>
+						<div class="data-title">
+							<b class="data-title-left">[</b>
+							<span>物联网总体规模</span>
+							<b class="data-title-right">]</b>
+						</div>
+
+
+					</div>
+
+					<div class="data-box11 clearfix">
+						<i class="topL"></i>
+						<i class="topR"></i>
+						<i class="bottomL"></i>
+						<i class="bottomR"></i>
+						<div class="data-title">
+							<b class="data-title-left">[</b>
+							<span>全省行业指标呈现</span>
+							<b class="data-title-right">]</b>
+						</div>
+						<div class="main_table t_btn8" id="wlwChartLine">
+
+						</div>
+					</div>
+
+					<div class="data-box11 clearfix">
+						<i class="topL"></i>
+						<i class="topR"></i>
+						<i class="bottomL"></i>
+						<i class="bottomR"></i>
+						<div class="data-title">
+							<b class="data-title-left">[</b>
+							<span>通用特征行业</span>
+							<b class="data-title-right">]</b>
+						</div>
+
+						<div class="page-box-r">
+							<div class="page-box-nw" id="scrollWarn1"><ul style="margin-top: -0.00279629px;"><li class="jiacu">共享单车（摩拜）：</li><li>日活跃单车（卡）4.52万；解锁次数13.24万次；涉及福州、厦门、泉州、漳州、龙岩等五地市。</li><li></li><li class="jiacu">福建省CMIOT:</li><li>用户数12.33万个；流量10868.71GB；XDR46282.37万条；涉及全省九地市。</li><li></li><li class="jiacu">福建省车联网：</li><li>用户数0.90万个；流量1.94GB；XDR188.83万条；涉及全省九地市。</li><li></li><li class="jiacu">国家充电桩</li><li>用户数0.31万个；流量5.48GB；XDR444.55万条；涉及全省九地市。</li><li></li><li class="jiacu">公共交通</li><li>用户数1.35万个；流量58.01GB；XDR723.33万条；涉及全省九地市。</li><li></li><li class="jiacu">公安</li><li>用户数1.1339万个；流量277.54GB；XDR2942.82万条；涉及全省九地市。</li><li></li><li class="jiacu">水务</li><li>用户数0.29万个；流量3.02GB；XDR916.57万条；涉及全省九地市。</li><li></li><li class="jiacu">电力</li><li>用户数19.31万个；流量465.06GB；XDR8420.92万条；涉及全省九地市。</li><li></li><li class="jiacu">路灯</li><li>用户数0.12万个；流量0.60GB；XDR47.77万条；涉及全省九地市。</li><li></li><li class="jiacu">银行</li><li>用户数0.60万个；流量7.52GB；XDR74.91万条；涉及全省九地市。</li><li></li></ul></div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+</div><!-- /.carousel -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="./static/js/jquery.min.js"></script>
+<script src="./static/dist/js/bootstrap.min.js"></script>
+
+<script src="./static/js/echarts.min.js"></script>
+<script src="./static/js/dataTool.js"></script>
+<script src="./static/js/china.js"></script>
+<script src="./static/js/fujian.js"></script>
+<script src="./static/js/ningde.js"></script>
+<script src="./static/js/rem.js"></script>
+
+<!--<script type="text/javascript" src="./static/js/main.js"></script>-->
+<script type="text/javascript" src="./static/js/main2.js"></script>
+
+</body>
+
+</html>

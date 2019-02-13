@@ -1,0 +1,56 @@
+package com.ygy.syh.controller;
+
+
+import com.ygy.syh.service.wlw.WlwService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Map;
+//http://ip:端口/wlw/wlwproj/toIndex
+
+@Controller
+@RequestMapping(value = "/wlwproj")
+public class WlwController {
+    @Autowired
+    private WlwService wlwService;
+    /**
+     * 功能：进入首页
+     */
+    @RequestMapping(value = "/toIndex", produces = {"application/json;charset=UTF-8"})
+    public String toIndex(){
+        return "index";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getZuoDaData", produces = {"application/json;charset=UTF-8"})
+    public Map<String,Object> getZuoDaData(String temp){
+        Map<String,Object> data = wlwService.getZuoDaData(temp);
+
+        return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getZuoDaLineData", produces = {"application/json;charset=UTF-8"})
+    public List<Map<String,Object>> getZuoDaLineData(){
+        List<Map<String,Object>> data=wlwService.getZuoDaLineData();
+        return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getZuoYouData", produces = {"application/json;charset=UTF-8"})
+    public Map<String,Object> getZuoYouData(String temp){
+        Map<String,Object> data = wlwService.getZuoyouData(temp);
+        return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getZuoQiangData", produces = {"application/json;charset=UTF-8"})
+    public Map<String,Object> getZuoQiangData(String temp){
+        Map<String,Object> data = wlwService.getZuoQiangData(temp);
+        return data;
+    }
+
+}
