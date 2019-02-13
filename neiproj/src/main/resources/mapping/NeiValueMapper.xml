@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xngls.neiproj.mapper.NeiValueMapper" >
+
+    <resultMap id="BaseResultMap" type="com.xngls.neiproj.entity.NeiValue" >
+        <result column="KPI_NAME" property="kpiName" jdbcType="VARCHAR" />
+        <result column="DATE_ID" property="dateId" jdbcType="INTEGER" />
+        <result column="CITY" property="city" jdbcType="INTEGER" />
+        <result column="CURRENT_VALUE" property="currentValue" jdbcType="NUMERIC" />
+        <result column="KPI_SCORE" property="kpiScore" jdbcType="NUMERIC" />
+        <result column="evalue_num" property="evalueNum" jdbcType="NUMERIC" />
+    </resultMap>
+    <insert id="insert" parameterType="com.xngls.neiproj.entity.NeiValue" >
+        insert into NEI_VALUE (KPI_NAME, DATE_ID, CITY,
+        CURRENT_VALUE, KPI_SCORE, evalue_num
+        )
+        values (#{kpiName,jdbcType=VARCHAR}, #{dateId,jdbcType=INTEGER}, #{city,jdbcType=INTEGER},
+        #{currentValue,jdbcType=NUMERIC}, #{kpiScore,jdbcType=NUMERIC}, #{evalueNum,jdbcType=NUMERIC}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.xngls.neiproj.entity.NeiValue" >
+        insert into NEI_VALUE
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="kpiName != null" >
+                KPI_NAME,
+            </if>
+            <if test="dateId != null" >
+                DATE_ID,
+            </if>
+            <if test="city != null" >
+                CITY,
+            </if>
+            <if test="currentValue != null" >
+                CURRENT_VALUE,
+            </if>
+            <if test="kpiScore != null" >
+                KPI_SCORE,
+            </if>
+            <if test="evalueNum != null" >
+                evalue_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="kpiName != null" >
+                #{kpiName,jdbcType=VARCHAR},
+            </if>
+            <if test="dateId != null" >
+                #{dateId,jdbcType=INTEGER},
+            </if>
+            <if test="city != null" >
+                #{city,jdbcType=INTEGER},
+            </if>
+            <if test="currentValue != null" >
+                #{currentValue,jdbcType=NUMERIC},
+            </if>
+            <if test="kpiScore != null" >
+                #{kpiScore,jdbcType=NUMERIC},
+            </if>
+            <if test="evalueNum != null" >
+                #{evalueNum,jdbcType=NUMERIC},
+            </if>
+        </trim>
+    </insert>
+
+
+    <resultMap id="ReportMap" type="HashMap">
+        <result column="avg_value" property="avg_value" />
+
+        <result column="city" property="city" />
+        <result column="business_type" property="business_type" />
+        <result column="dimension" property="dimension" />
+    </resultMap>
+    <select id="getReportBydDate"  resultMap="ReportMap">
+
+        select cast(round(sum(t3.one_value),2) as decimal(10,2)) as avg_value, t3.city,t3.business_type,t3.dimension from
+        (select t2.*, t2.score*(t2.kpi_weight/t2.sum_weight) as one_value from (select t.city,t.business_type,t.dimension,t.score,t.kpi_weight, t1.sum_weight from NEI_KPI_VIEW t left join
+        (select city,business_type,dimension,sum(kpi_weight) as sum_weight from NEI_KPI_VIEW
+        where date_id &gt; #{firstDate,jdbcType=INTEGER} and date_id &lt; #{lastDate,jdbcType=INTEGER} and business_type=#{business_type,jdbcType=VARCHAR} group by city,business_type,dimension ) t1
+        on t1.city=t.city and t1.business_type=t.business_type and t1.dimension=t.dimension
+        where t.date_id &gt; #{firstDate,jdbcType=INTEGER} and t.date_id &lt; #{lastDate,jdbcType=INTEGER} and t.business_type=#{business_type,jdbcType=VARCHAR} and t1.sum_weight&gt;0) t2) t3
+        group by t3.city,t3.business_type,t3.dimension
+
+    </select>
+
+    <select id="getReportAllBydDate"  resultMap="ReportMap">
+
+        select  cast(round(sum(t3.one_value),2) as decimal(10,2)) as avg_value, t3.city,'全省指标' as business_type,t3.dimension from
+        (select t2.*, t2.score*(t2.kpi_weight/t2.sum_weight) as one_value from (select t.city,t.dimension,t.score,t.kpi_weight, t1.sum_weight from NEI_KPI_VIEW t left join
+        (select city,dimension,sum(kpi_weight) as sum_weight from NEI_KPI_VIEW
+        where date_id &gt; #{firstDate,jdbcType=INTEGER} and date_id &lt; #{lastDate,jdbcType=INTEGER}  group by city,dimension ) t1
+        on t1.city=t.city  and t1.dimension=t.dimension
+        where t.date_id &gt; #{firstDate,jdbcType=INTEGER} and t.date_id &lt; #{lastDate,jdbcType=INTEGER}  and t1.sum_weight&gt;0) t2) t3
+        group by t3.city,t3.dimension
+    </select>
+
+
+    <resultMap id="AllMap" type="HashMap">
+        <result column="KPI_NAME" property="KPI_NAME" />
+        <result column="KPI_INFO" property="KPI_INFO" />
+        <result column="KPI_DEFINITION" property="KPI_DEFINITION" />
+        <result column="BUSINESS_TYPE" property="BUSINESS_TYPE" />
+        <result column="DIMENSION" property="DIMENSION" />
+        <result column="SUB_DIMENSION" property="SUB_DIMENSION" />
+        <result column="DEPARTMENT" property="DEPARTMENT" />
+        <result column="FETCH_WAY" property="FETCH_WAY" />
+        <result column="BENCHMARK_VALUE" property="BENCHMARK_VALUE" />
+        <result column="CHALLENGE_VALUE" property="CHALLENGE_VALUE" />
+        <result column="FLAG_VALUE" property="FLAG_VALUE" />
+        <result column="CURRENT_VALUE" property="CURRENT_VALUE" />
+        <result column="DATE_ID" property="DATE_ID" />
+        <result column="CITY" property="CITY" />
+    </resultMap>
+    <select id="getAllBydDate"  resultMap="AllMap">
+       <!--cast(round(v.CURRENT_VALUE,2) as decimal(10,2)) as-->
+        select
+        k.KPI_NAME,k.ID,k.KPI_INFO,k.KPI_DEFINITION,k.BUSINESS_TYPE,k.DIMENSION,k.SUB_DIMENSION,k.DEPARTMENT,k.MANAGER,
+        k.FETCH_ALGORITHM,k.FETCH_APPROACH,k.FETCH_PLATFORM,k.FETCH_WAY,k.TIME_GRANULARITY,k.AREA_GRANULARITY,k.BENCHMARK_VALUE,k.CHALLENGE_VALUE,
+        k.FLAG_VALUE,k.IS_TREND,k.OTHER,k.KPI_WEIGHT,k.SORT,v.DATE_ID,v.CITY, CURRENT_VALUE
+        from NEI_VALUE v inner join NEI_KPI k  on v.KPI_NAME=k.KPI_NAME where v.date_id &gt;= #{firstDate,jdbcType=INTEGER} and date_id &lt;= #{lastDate,jdbcType=INTEGER}  ORDER BY v.DATE_ID,k.ID,v.CITY ;
+    </select>
+
+
+    <insert id="insertData" parameterType="java.util.List" >
+        insert into NEI_VALUE (KPI_NAME, DATE_ID, CITY,
+        CURRENT_VALUE
+        )
+        values
+        <foreach collection="list" item="neiValue"  separator="," >
+
+        (#{neiValue.kpiName,jdbcType=VARCHAR},#{neiValue.dateId,jdbcType=INTEGER},#{neiValue.city,jdbcType=INTEGER},#{neiValue.currentValue,jdbcType=NUMERIC})
+
+        </foreach>
+    </insert>
+
+</mapper>

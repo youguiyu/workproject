@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-sm-3 col-md-3">
+          <div class="row">
+            <div class="col-sm-12 col-md-12 divclass" >
+                <div style="height:225px;width:100%;border:solid 1px #d3d3d3">????????</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-12 divclass">
+                <div style="height:225px;width:100%;border:solid 1px #d3d3d3">????????</div>
+            </div>
+          </div>
+    </div>
+    <div class="col-sm-6 col-md-6" id="middleDiv">
+          <div id="ydywEchart" style="height:455px;width:100%;border:solid 1px #d3d3d3">??</div>
+    </div>
+    <div class="col-sm-3 col-md-3">
+          <div class="row">
+              <div class="col-sm-12 col-md-12 divclass">
+                  <div style="height:225px;width:100%;border:solid 1px #d3d3d3">????????</div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-12 col-md-12 divclass">
+                  <div style="height:225px;width:100%;border:solid 1px #d3d3d3">????????</div>
+              </div>
+          </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-sm-6 col-md-6 divclass">
+		<div style="height:225px;width:100%;border:solid 1px #d3d3d3">????????</div>
+	</div>
+    <div class="col-sm-6 col-md-6 divclass">
+		<div style="height:225px;width:100%;border:solid 1px #d3d3d3">????????</div>
+	</div>
+</div>

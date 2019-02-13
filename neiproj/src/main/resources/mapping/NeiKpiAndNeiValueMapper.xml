@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xngls.neiproj.mapper.NeiKpiAndNeiValueMapper" >
+    <resultMap id="BaseResultMap" type="com.xngls.neiproj.entity.NeiKpiAndNeiValue" >
+
+        <result column="KPI_NAME" property="kpiName" jdbcType="VARCHAR" />
+        <result column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="KPI_INFO" property="kpiInfo" jdbcType="VARCHAR" />
+        <result column="KPI_DEFINITION" property="kpiDefinition" jdbcType="LONGVARCHAR" />
+        <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+        <result column="DIMENSION" property="dimension" jdbcType="VARCHAR" />
+        <result column="SUB_DIMENSION" property="subDimension" jdbcType="VARCHAR" />
+        <result column="DEPARTMENT" property="department" jdbcType="VARCHAR" />
+        <result column="MANAGER" property="manager" jdbcType="VARCHAR" />
+
+        <result column="FETCH_ALGORITHM" property="fetchAlgorithm" jdbcType="LONGVARCHAR" />
+        <result column="FETCH_APPROACH" property="fetchApproach" jdbcType="LONGVARCHAR" />
+        <result column="FETCH_PLATFORM" property="fetchPlatform" jdbcType="VARCHAR" />
+        <result column="FETCH_WAY" property="fetchWay" jdbcType="VARCHAR" />
+        <result column="TIME_GRANULARITY" property="timeGranularity" jdbcType="VARCHAR" />
+        <result column="AREA_GRANULARITY" property="areaGranularity" jdbcType="VARCHAR" />
+        <result column="BENCHMARK_VALUE" property="benchmarkValue" jdbcType="NUMERIC" />
+        <result column="CHALLENGE_VALUE" property="challengeValue" jdbcType="NUMERIC" />
+        <result column="FLAG_VALUE" property="flagValue" jdbcType="NUMERIC" />
+        <result column="IS_TREND" property="isTrend" jdbcType="BIT" />
+
+        <result column="OTHER" property="other" jdbcType="VARCHAR" />
+        <result column="KPI_WEIGHT" property="kpiWight" jdbcType="NUMERIC" />
+        <result column="SORT" property="sort" jdbcType="INTEGER" />
+
+        <result column="DATE_ID" property="dateId" jdbcType="INTEGER" />
+        <result column="CITY" property="city" jdbcType="INTEGER" />
+        <result column="CURRENT_VALUE" property="currentValue" jdbcType="NUMERIC" />
+
+
+    </resultMap>
+
+
+
+    <resultMap id="BaseResultMap2" type="com.xngls.neiproj.entity.NeiKpiViewTotal" >
+
+
+        <result column="DATE_ID" property="dateId" jdbcType="INTEGER" />
+
+        <result column="TOTAL_KPI_WEIGHT" property="totalKpiWeight" jdbcType="NUMERIC" />
+
+
+    </resultMap>
+
+
+
+    <select id="selectDataBytiaojian" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        k.KPI_NAME,k.ID,k.KPI_INFO,k.KPI_DEFINITION,k.BUSINESS_TYPE,k.DIMENSION,k.SUB_DIMENSION,k.DEPARTMENT,k.MANAGER,
+        k.FETCH_ALGORITHM,k.FETCH_APPROACH,k.FETCH_PLATFORM,k.FETCH_WAY,k.TIME_GRANULARITY,k.AREA_GRANULARITY,k.BENCHMARK_VALUE,k.CHALLENGE_VALUE,
+        k.FLAG_VALUE,k.IS_TREND,k.OTHER,k.KPI_WEIGHT,k.SORT,v.DATE_ID,v.CITY,v.CURRENT_VALUE
+        from NEI_KPI k inner join NEI_VALUE v  on v.KPI_NAME=k.KPI_NAME
+        <where>
+            <if test="selectsilun!=null and selectsilun!=''">
+                k.BUSINESS_TYPE = #{selectsilun} and k.SORT &gt;0
+            </if>
+            <if test="cityNum!=null and cityNum!=''">
+                AND v.CITY = #{cityNum}
+            </if>
+
+            <if test="timeRange1!=null and timeRange1!=''">
+                AND v.DATE_ID &gt;= #{timeRange1}
+            </if>
+            <if test="timeRange2!=null and timeRange1!=''">
+                AND v.DATE_ID &lt;= #{timeRange2}
+            </if>
+            <if test="selecttenW!=null">
+                AND k.DIMENSION in
+                <foreach collection="selecttenW" item="item" index="index" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+
+        </where>
+        ORDER  BY k.SORT asc
+
+
+    </select>
+    <select id="selectDataBytiaojian2" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from NEI_KPI_LOW_VIEW
+        <where>
+            <if test="bussinessType!=null and bussinessType!=''">
+                BUSINESS_TYPE = #{bussinessType} and temp in(1,2)
+            </if>
+            <if test="time!=null and time!=''">
+                AND DATE_ID = #{time}
+            </if>
+            <if test="demension!=null and demension!=''">
+                AND DIMENSION = #{demension}
+            </if>
+
+        </where>
+        ORDER  BY SORT asc
+
+
+    </select>
+
+
+
+
+    <select id="findqushiData" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        k.KPI_NAME,k.ID,k.KPI_INFO,k.KPI_DEFINITION,k.BUSINESS_TYPE,k.DIMENSION,k.SUB_DIMENSION,k.DEPARTMENT,k.MANAGER,
+        k.FETCH_ALGORITHM,k.FETCH_APPROACH,k.FETCH_PLATFORM,k.FETCH_WAY,k.TIME_GRANULARITY,k.AREA_GRANULARITY,k.BENCHMARK_VALUE,k.CHALLENGE_VALUE,
+        k.FLAG_VALUE,k.IS_TREND,k.OTHER,k.KPI_WEIGHT,k.SORT,v.DATE_ID,v.CITY,v.CURRENT_VALUE
+        from NEI_KPI k inner join NEI_VALUE v  on v.KPI_NAME=k.KPI_NAME
+        <where>
+            <if test="kpiName!=null and kpiName!=''">
+                k.KPI_NAME = #{kpiName}  and  k.SORT &gt;0
+            </if>
+            <if test="selectsilun!=null and selectsilun!=''">
+                AND k.BUSINESS_TYPE = #{selectsilun}
+            </if>
+            <if test="cityNum!=null and cityNum!=''">
+                AND v.CITY = #{cityNum}
+            </if>
+
+            <if test=" timeRange2!=null and timeRange2!=''">
+                AND v.DATE_ID &gt;= #{timeRange2}
+            </if>
+            <if test="timeRange1!=null and timeRange1!=''">
+                AND v.DATE_ID &lt;= #{timeRange1}
+            </if>
+            <if test="dimension!=null and dimension!=''">
+                AND k.DIMENSION = #{dimension}
+            </if>
+            ORDER BY  v.DATE_ID ASC
+        </where>
+
+
+    </select>
+
+
+    <select id="findqushiData2" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        k.KPI_NAME,k.ID,k.KPI_INFO,k.KPI_DEFINITION,k.BUSINESS_TYPE,k.DIMENSION,k.SUB_DIMENSION,k.DEPARTMENT,k.MANAGER,
+        k.FETCH_ALGORITHM,k.FETCH_APPROACH,k.FETCH_PLATFORM,k.FETCH_WAY,k.TIME_GRANULARITY,k.AREA_GRANULARITY,k.BENCHMARK_VALUE,k.CHALLENGE_VALUE,
+        k.FLAG_VALUE,k.IS_TREND,k.OTHER,k.KPI_WEIGHT,k.SORT,v.DATE_ID,v.CITY,v.CURRENT_VALUE
+        from NEI_KPI k inner join NEI_VALUE v  on v.KPI_NAME=k.KPI_NAME
+        <where>
+            <if test="kpiName!=null and kpiName!=''">
+                k.KPI_NAME = #{kpiName}  and k.OTHER in('x','y')
+            </if>
+            <if test="selectsilun!=null and selectsilun!=''">
+                AND k.BUSINESS_TYPE = #{selectsilun}
+            </if>
+            <if test=" timeRange2!=null and timeRange2!=''">
+                AND v.DATE_ID &gt;= #{timeRange2}
+            </if>
+            <if test="timeRange1!=null and timeRange1!=''">
+                AND v.DATE_ID &lt;= #{timeRange1}
+            </if>
+            <if test="dimension!=null and dimension!=''">
+                AND k.DIMENSION = #{dimension}
+            </if>
+            ORDER BY  v.DATE_ID ASC
+        </where>
+
+
+    </select>
+
+
+    <select id="findqushiData2Time" parameterType="java.util.Map" resultMap="BaseResultMap2">
+       select t.DATE_ID ,SUM(KPI_WEIGHT)as TOTAL_KPI_WEIGHT from (select
+        k.KPI_NAME,k.ID,k.KPI_INFO,k.KPI_DEFINITION,k.BUSINESS_TYPE,k.DIMENSION,k.SUB_DIMENSION,k.DEPARTMENT,k.MANAGER,
+        k.FETCH_ALGORITHM,k.FETCH_APPROACH,k.FETCH_PLATFORM,k.FETCH_WAY,k.TIME_GRANULARITY,k.AREA_GRANULARITY,k.BENCHMARK_VALUE,k.CHALLENGE_VALUE,
+        k.FLAG_VALUE,k.IS_TREND,k.OTHER,k.KPI_WEIGHT,k.SORT,v.DATE_ID,v.CITY,v.CURRENT_VALUE
+        from NEI_KPI k inner join NEI_VALUE v on v.KPI_NAME=k.KPI_NAME
+        where
+                k.KPI_NAME = #{kpiName} and k.OTHER in('x','y')
+
+
+                AND k.BUSINESS_TYPE = #{selectsilun}
+
+
+                AND v.DATE_ID &gt;= #{timeRange2}
+
+
+                AND v.DATE_ID &lt;= #{timeRange1}
+
+
+                AND k.DIMENSION = #{dimension}
+
+
+       )  t group by t.DATE_ID  ORDER BY t.DATE_ID ASC
+
+
+    </select>
+
+
+
+    <select id="puanduanshifouyoushuju" parameterType="java.util.Map" resultType="com.xngls.neiproj.entity.NeiKpiAndNeiValue">
+        select v.KPI_NAME as kpiName,k.KPI_INFO as kpiInfo,v.DATE_ID as dateId,v.CITY as city ,v.CURRENT_VALUE as currentValue
+        from NEI_VALUE v inner join NEI_KPI k on v.KPI_NAME=k.KPI_NAME
+        <where>
+            <if test="kpiInfo!=null and kpiInfo!=''">
+                k.KPI_INFO = #{kpiInfo}
+            </if>
+            <if test="city!=null">
+                AND v.CITY = #{city}
+            </if>
+            <if test=" dateId!=null">
+                AND v.DATE_ID = #{dateId}
+            </if>
+
+
+        </where>
+
+
+    </select>
+
+
+    <update id="updateKpiValue" parameterType="java.util.Map">
+        UPDATE NEI_VALUE
+        <set>
+            <if test="currentValue != null">
+                CURRENT_VALUE = #{currentValue}
+            </if>
+
+        </set>
+        where KPI_NAME = #{kpiName} and DATE_ID=#{dateId} and CITY=#{city}
+    </update>
+
+    <insert id="insertNeiValue" parameterType="java.util.Map">
+        insert into NEI_VALUE(KPI_NAME, DATE_ID,CITY,CURRENT_VALUE)
+        values(#{kpiName}, #{dateId},#{city},#{currentValue})
+    </insert>
+
+
+    <select id="selectNeiValuesByTimeRange" parameterType="java.util.Map" resultMap="BaseResultMap">
+
+        select k.KPI_INFO as KPI_INFO,k.KPI_NAME as KPI_NAME,v.CITY as CITY,v.DATE_ID as DATE_ID,v.CURRENT_VALUE as CURRENT_VALUE from NEI_VALUE v inner join NEI_KPI k on v.KPI_NAME=k.KPI_NAME
+        where v.DATE_ID &gt;= #{timeleft}
+
+                AND v.DATE_ID &lt;= #{timeright}
+        ORDER  BY  DATE_ID,city asc
+    </select>
+
+</mapper>

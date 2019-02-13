@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xngls.neiproj.mapper.NeiKpiViewMapper" >
+
+    <resultMap id="BaseResultMap" type="com.xngls.neiproj.entity.NeiKpiView" >
+        <result column="KPI_NAME" property="kpiName" jdbcType="VARCHAR" />
+        <result column="DATE_ID" property="dateId" jdbcType="VARCHAR" />
+        <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+        <result column="CITY" property="city" jdbcType="INTEGER" />
+        <result column="OTHER" property="other" jdbcType="VARCHAR" />
+        <result column="KPI_WEIGHT" property="kpiWeight" jdbcType="NUMERIC" />
+        <result column="score" property="score" jdbcType="NUMERIC" />
+        <result column="BENCHMARK_VALUE" property="benchmarkValue" jdbcType="NUMERIC" />
+        <result column="CHALLENGE_VALUE" property="challengeValue" jdbcType="NUMERIC" />
+        <result column="CURRENT_VALUE" property="currentValue" jdbcType="NUMERIC" />
+        <result column="DIMENSION" property="dimension" jdbcType="VARCHAR" />
+        <result column="WEIGHT_TOTAL" property="weightTotal" jdbcType="VARCHAR" />
+
+    </resultMap>
+
+    <sql id="Blob_Column_List" >
+        KPI_NAME, DATE_ID, BUSINESS_TYPE, CITY,OTHER,KPI_WEIGHT,score
+    </sql>
+
+    <select id="findNeiKpiViewByTiao"  parameterType="java.util.Map" resultMap="BaseResultMap">
+         select date_id,KPI_NAME,BUSINESS_TYPE,CITY,OTHER,KPI_WEIGHT,SCORE from nei_kpi_view
+        <where>
+            <if test="city!=null and city!=''">
+                CITY=#{city}
+            </if>
+            <if test="dateId!=null and dateId!=''">
+                AND date_id=#{dateId}
+            </if>
+
+            <if test="businessType!=null and businessType!=''">
+                AND BUSINESS_TYPE =#{businessType}
+            </if>
+        </where>
+    </select>
+
+    <select id="findNeiKpiViewByTiao2"  parameterType="java.util.Map" resultMap="BaseResultMap">
+        select date_id,KPI_NAME,BUSINESS_TYPE,CITY,OTHER,KPI_WEIGHT,SCORE from nei_kpi_view
+        <where>
+            <if test="city!=null and city!=''">
+                CITY=#{city}
+            </if>
+            <if test="day1!=null and day1!=''">
+                AND date_id &gt;#{day1} AND date_id &lt;=#{day2}
+            </if>
+
+            <if test="businessType!=null and businessType!=''">
+                AND BUSINESS_TYPE =#{businessType}
+            </if>
+        </where>
+        ORDER BY date_id ASC
+    </select>
+
+    <select id="findNeiKpiViewByTiao3"  parameterType="java.util.Map" resultMap="BaseResultMap">
+        select date_id,KPI_NAME,BUSINESS_TYPE,CITY,OTHER,KPI_WEIGHT,SCORE,BENCHMARK_VALUE,CHALLENGE_VALUE,CURRENT_VALUE,DIMENSION from nei_kpi_view
+        where
+                 date_id =#{dateId}
+
+
+
+                AND BUSINESS_TYPE =#{businessType}
+
+
+        ORDER BY date_id ASC
+    </select>
+
+    <select id="findNeiKpiViewByTiao4"  parameterType="java.util.Map" resultMap="BaseResultMap">
+        select DIMENSION,SUM(KPI_WEIGHT)as WEIGHT_TOTAL from
+        NEI_KPI_VIEW where
+
+                 date_id =#{dateId}
+                AND BUSINESS_TYPE =#{businessType}
+        group by DIMENSION
+    </select>
+</mapper>

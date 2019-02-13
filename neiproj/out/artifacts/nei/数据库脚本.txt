@@ -1,0 +1,34 @@
+
+ drop view NEI_KPI_VALUE_VIEW;
+ create view NEI_KPI_VALUE_VIEW as
+ select
+        k.KPI_NAME,k.ID,k.KPI_INFO,k.KPI_DEFINITION,k.BUSINESS_TYPE,k.DIMENSION,k.SUB_DIMENSION,k.DEPARTMENT,k.MANAGER,
+        k.FETCH_ALGORITHM,k.FETCH_APPROACH,k.FETCH_PLATFORM,k.FETCH_WAY,k.TIME_GRANULARITY,k.AREA_GRANULARITY,k.BENCHMARK_VALUE,k.CHALLENGE_VALUE,
+        k.FLAG_VALUE,k.IS_TREND,k.OTHER,k.KPI_WEIGHT,k.SORT,v.DATE_ID,v.CITY,v.CURRENT_VALUE,
+				(case
+				when v.CURRENT_VALUE>=k.CHALLENGE_VALUE and k.OTHER='x' then 100
+				when v.CURRENT_VALUE<k.BENCHMARK_VALUE and k.OTHER='x' then 0
+
+				when v.CURRENT_VALUE<=k.CHALLENGE_VALUE and k.OTHER='y' then 100
+				when v.CURRENT_VALUE>k.BENCHMARK_VALUE and k.OTHER='y' then 0
+
+				when (k.BENCHMARK_VALUE-k.CHALLENGE_VALUE)<>0 and k.OTHER='y' then (60+((k.BENCHMARK_VALUE-v.CURRENT_VALUE)/(k.BENCHMARK_VALUE-k.CHALLENGE_VALUE))*40)
+
+				when (k.CHALLENGE_VALUE-k.BENCHMARK_VALUE)<>0 and k.OTHER='x' then (60+((k.CHALLENGE_VALUE-v.CURRENT_VALUE)/((k.CHALLENGE_VALUE-k.BENCHMARK_VALUE))*40))
+				when k.OTHER='n' then 0
+				else 0 end) as score
+        from NEI_KPI k inner join NEI_VALUE v  on v.KPI_NAME=k.KPI_NAME where k.OTHER in ('x','y');
+
+
+
+        create view NEI_KPI_LOW_VIEW as
+         select
+                k.KPI_NAME,k.ID,k.KPI_INFO,k.KPI_DEFINITION,k.BUSINESS_TYPE,k.DIMENSION,k.SUB_DIMENSION,k.DEPARTMENT,k.MANAGER,
+                k.FETCH_ALGORITHM,k.FETCH_APPROACH,k.FETCH_PLATFORM,k.FETCH_WAY,k.TIME_GRANULARITY,k.AREA_GRANULARITY,k.BENCHMARK_VALUE,k.CHALLENGE_VALUE,
+                k.FLAG_VALUE,k.IS_TREND,k.OTHER,k.KPI_WEIGHT,k.SORT,v.DATE_ID,v.CITY,v.CURRENT_VALUE
+                ,
+                (case when   k.OTHER='y' and v.CURRENT_VALUE > k.BENCHMARK_VALUE  then 1
+                when k.OTHER='x' and v.CURRENT_VALUE<k.BENCHMARK_VALUE then 2
+                else 0 end ) as temp
+
+                from NEI_KPI k inner join NEI_VALUE v  on v.KPI_NAME=k.KPI_NAME where k.OTHER in('x','y');

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--  <link rel="icon" href="../../favicon.ico">-->
+
+    <title>指标数据管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/css/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/mulu.css" rel="stylesheet">
+
+    <link href="../static/css/index.css" rel="stylesheet">
+
+    <link href="../static/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../static/css/dashboard.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../static/css/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../static/css/assets/js/ie-emulation-modes-warning.js"></script>
+
+
+
+
+
+    <!-- bootstrap-table -->
+    <link href="../static/css/bootstrap-table.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="rightContent" class="main">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#allIndex" data-toggle="tab">
+                    全量数据操作
+                </a>
+            </li>
+            <li><a href="#indexData" data-toggle="tab">指标数据校验</a></li>
+            <li><a href="#indeInfo" data-toggle="tab">指标数据信息查询</a></li>
+
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="allIndex">
+
+                <div class="row" id="indexDatarow3">
+                    <div class="col-xs-1">
+                        全量数据导出：
+
+                    </div>
+                        <div class="col-xs-1">
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="请选择月份" aria-describedby="basic-addon2" id="monthselect">
+                            <span class="input-group-addon" id="basic-addon2">月</span>
+                        </div>
+                    </div>
+                    <div  class="col-xs-6"><button type="button" id="btnAll" class="btn btn-success">导出报表</button></div>
+                </div>
+                <h1 class="page-header"></h1>
+
+
+                <div class="row">
+
+
+                        <form id="frm_reg" action="../../nei/neiproj/uploadExcel" enctype="multipart/form-data" method="post">
+                            <div class="col-xs-1">
+                                全量数据更新：
+
+                            </div>
+                            <div class="col-xs-1">
+
+                                <label for="file1" class="btn btn-default">选择文件</label>
+                                <input  id="file1" type="file" name="file" style="display: none"/>
+
+
+                            </div>
+                            <div  class="col-xs-6">
+
+                                <input class="btn btn-success" id="sub" type="submit" name="submit" value="更新数据"/>
+                            </div>
+                        </form>
+
+
+                </div>
+                <h4 class="page-header"></h4>
+                <div class="row" >
+                    <div class="col-lg-12"><h4>指标校验的标准如下:</h4></div>
+                </div>
+                <div class="row" id="indexDatarow22">
+                    <div class="col-xs-9"></div>
+                    <div class="col-xs-2">
+
+                        <input type="text" class="form-control"  aria-describedby="basic-addon2" id="searchText1">
+
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="javascript:findInfoData1()">查询</button>
+                </div>
+
+                <div class="row" id="indexDatarow11">
+                    <div class="table-responsive">
+                        <table id="kpiInfoTable1"></table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="indexData">
+
+                <div class="row" id="indexDatarow">
+                    <div class="col-xs-2">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="请选择日期" aria-describedby="basic-addon2" id="timeselect">
+                            <span class="input-group-addon" id="basic-addon2">日</span>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-success" onclick="javascript:findModelData()">查询</button>
+
+                    </div>
+
+                </div>
+                <h1 class="page-header"></h1>
+
+                <div class="row" id="indexDatarow4">
+                    <div class="table-responsive">
+                        <table id="testTable"></table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="indeInfo">
+                <div class="row" >
+                    <div class="col-lg-12">&nbsp;</div>
+                </div>
+                <div class="row" id="indexDatarow2">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-4">
+
+                        <input type="text" class="form-control"  aria-describedby="basic-addon2" id="searchText">
+
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="javascript:findInfoData()">查询</button>
+                </div>
+
+                <div class="row" id="indexDatarow1">
+                    <div class="table-responsive">
+                        <table id="kpiInfoTable"></table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div id="light" class="white_content">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href = "javascript:closewin();" ><img src="../static/img/close2.png" class="colse-puttton" id="closeButtonId"/></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="xiangxiData" style="width: 100%;height:400px;"></div>
+            </div>
+        </div>
+    </div>
+    <div id="fade" class="black_overlay"></div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script language="javascript" src="../static/js/jquery.min.js"></script>
+    <script language="javascript" src="../static/js/jquery.form.js"></script>
+    <script language="javascript" src="../static/js/laydate/laydate.js"></script>
+    <script language="javascript" src="../static/js/city.js"></script>
+
+    <script language="javascript" src="../static/js/echarts.js"></script>
+    <script language="javascript" src="../static/js/dist/echarts.js"></script>
+
+
+    <!--  <script src="../js/jquery-3.0.0.min.js"></script> -->
+    <script>window.jQuery || document.write('<script src="../static/css/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../static/css/assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../static/css/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    <script src="../static/js/bootstrap-table.min.js"></script>
+    <script src="../static/js/bootstrap-table-zh-CN.min.js"></script>
+
+    <script language="javascript" src="../static/js/indexDataManage.js"></script>
+
+    <script src="../static/js/dataexport.js"></script>
+
+</body>
+</html>

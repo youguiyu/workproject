@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xngls.neiproj.mapper.NeiBullientMapper" >
+
+    <resultMap id="BaseResultMap" type="com.xngls.neiproj.entity.NeiBullient" >
+        <result column="KPI_NAME" property="kpiName" jdbcType="VARCHAR" />
+        <result column="KPI_INFO" property="kpiInfo" jdbcType="VARCHAR" />
+        <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+        <result column="DIMENSION" property="dimension" jdbcType="VARCHAR" />
+        <result column="LAST_PERIOD" property="lastPeriod" jdbcType="NUMERIC" />
+        <result column="CURRENT_PERIOD" property="currentPeriod" jdbcType="NUMERIC" />
+        <result column="COUNTRY_WIDE" property="countryWide" jdbcType="NUMERIC" />
+        <result column="BEST_VALUE" property="bestValue" jdbcType="NUMERIC" />
+        <result column="WORST_VALUE" property="worstValue" jdbcType="NUMERIC" />
+        <result column="RANKING_PERIOD" property="rankingPeriod" jdbcType="VARCHAR" />
+        <result column="KPI_WEIGHT" property="kpiWeight" jdbcType="NUMERIC" />
+        <result column="OTHER" property="other" jdbcType="VARCHAR" />
+        <result column="BENCHMARK_VALUE" property="benchmarkValue" jdbcType="NUMERIC" />
+        <result column="CHALLENGE_VALUE" property="challengeValue" jdbcType="NUMERIC" />
+
+
+    </resultMap>
+
+    <sql id="Blob_Column_List" >
+        KPI_INFO, KPI_DEFINITION, FETCH_ALGORITHM, FETCH_APPROACH
+    </sql>
+
+    <!--select b.BUSINESS_TYPE,b.DIMENSION,b.KPI_INFO,b.KPI_NAME,LAST_PERIOD, b.CURRENT_PERIOD ,
+    b.COUNTRY_WIDE,b.BEST_VALUE,b.WORST_VALUE,b.RANKING_PERIOD,n.KPI_WEIGHT,n.OTHER
+    from BULLETIN_DATA_20182 b INNER JOIN NEI_KPI n  on b.KPI_NAME = n.KPI_NAME where b.BUSINESS_TYPE='移动业务' -->
+
+    <select id="selectBullientBytiaojian" parameterType="java.util.Map" resultMap="BaseResultMap" statementType="STATEMENT">
+        select b.BUSINESS_TYPE,b.DIMENSION,b.KPI_INFO,n.BENCHMARK_VALUE,n.CHALLENGE_VALUE,n.OTHER,b.KPI_NAME,LAST_PERIOD, b.CURRENT_PERIOD ,
+        b.COUNTRY_WIDE,b.BEST_VALUE,b.WORST_VALUE,b.RANKING_PERIOD,n.KPI_WEIGHT
+        from ${tablename} b INNER JOIN NEI_KPI n  on b.KPI_NAME = n.KPI_NAME
+        <where>
+            <if test="selectsilun!=null and selectsilun!=''">
+                b.BUSINESS_TYPE = ${selectsilun}  and n.OTHER in('x','y')
+            </if>
+
+
+        </where>
+
+
+
+
+    </select>
+
+    <select id="selectBullientBytiaojianTemp" parameterType="java.util.Map" resultMap="BaseResultMap" statementType="STATEMENT">
+        select b.BUSINESS_TYPE,b.DIMENSION,b.KPI_INFO,n.BENCHMARK_VALUE,n.CHALLENGE_VALUE,n.OTHER,b.KPI_NAME,LAST_PERIOD, b.CURRENT_PERIOD ,
+        b.COUNTRY_WIDE,b.BEST_VALUE,b.WORST_VALUE,b.RANKING_PERIOD,n.KPI_WEIGHT
+        from ${tablename} b INNER JOIN NEI_KPI n  on b.KPI_NAME = n.KPI_NAME
+        <where>
+            <if test="demension!=null and demension!=''">
+                b.DIMENSION = ${demension}  and n.OTHER in('x','y')
+            </if>
+
+
+        </where>
+    </select>
+
+</mapper>

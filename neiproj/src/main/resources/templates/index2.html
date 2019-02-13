@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+   <!--  <link rel="icon" href="../../favicon.ico">-->
+
+    <title>管理者视图</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/css/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/mulu.css" rel="stylesheet">
+    
+	<link href="../static/css/index.css" rel="stylesheet">
+	
+	<link href="../static/css/bootstrap-select.min.css" rel="stylesheet">
+      <link href="../static/css/dashboard.css" rel="stylesheet">
+	
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../static/css/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../static/css/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+  <div id="rightContent" class="main">
+      <div class="row" style="height:60%;">
+          <div class="col-sm-3 col-md-3" style="height:100%;">
+              <div class="row" style="height:50%;">
+                  <div class="col-sm-12 col-md-12 divclass" style="height:100%;" >
+                      <div style="height:100%;width:100%;border:solid 1px #d3d3d3">
+
+                          <div id="radar1" style="width:100%;height:100%;"></div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row" style="height:50%;">
+                  <div class="col-sm-12 col-md-12 divclass" style="height:100%;">
+                      <div style="height:100%;width:100%;border:solid 1px #d3d3d3">
+                          <div id="radar2" style="width:100%;height:100%;"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-6 col-md-6" id="middleDiv" style="height:100%;">
+              <div id="ydywEchart" style="height:100%;width:100%;border:solid 1px #d3d3d3">
+
+              </div>
+          </div>
+          <div class="col-sm-3 col-md-3" style="height:100%;">
+              <div class="row" style="height:50%;">
+                  <div class="col-sm-12 col-md-12 divclass" style="height:100%;">
+                      <div style="height:100%;width:100%;border:solid 1px #d3d3d3">
+
+                          <div id="radar3" style="width:100%;height:100%;"></div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row" style="height:50%;">
+                  <div class="col-sm-12 col-md-12 divclass" style="height:100%;">
+                      <div style="height:100%;width:100%;border:solid 1px #d3d3d3">
+                          <div id="radar4" style="width:100%;height:100%;"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+      <div class="row" style="height:40%;">
+          <div class="col-sm-6 col-md-6 divclass" style="height:100%;">
+              <div style="height:100%;width:100%;border:solid 1px #d3d3d3">第四列的第二个宽</div>
+          </div>
+          <div class="col-sm-6 col-md-6 divclass" style="height:100%;">
+              <div style="height:100%;width:100%;border:solid 1px #d3d3d3">第四列的第二个宽</div>
+          </div>
+      </div>
+  </div>
+
+
+
+
+  <div id="light" class="white_content">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href = "javascript:closewin();" ><img src="../static/img/close2.png" class="colse-puttton" id="closeButtonId"/></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="chartmain" style="width: 100%;height:400px;"></div>
+            </div>
+        </div>
+	   
+	</div> 
+     <div id="fade" class="black_overlay">
+
+     </div>
+    <script language="javascript" src="../static/js/jquery.min.js"></script>
+	<script language="javascript" src="../static/js/laydate/laydate.js"></script>
+    <script language="javascript" src="../static/js/city.js"></script>
+
+	<script language="javascript" src="../static/js/echarts.js"></script>
+  <script language="javascript" src="../static/js/dist/echarts.js"></script>
+	<script src="../static/js/xnpg.js"></script>
+
+    <script src="../static/js/index2.js"></script>
+  
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	
+	
+    <!--  <script src="../js/jquery-3.0.0.min.js"></script> -->
+    <script>window.jQuery || document.write('<script src="../static/css/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../static/css/assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../static/css/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

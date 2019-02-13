@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xngls.neiproj.mapper.KpiModeMapper" >
+
+
+    <resultMap id="BaseResultMap" type="com.xngls.neiproj.entity.KpiModel" >
+        <result column="DATE_ID" property="dateId" jdbcType="INTEGER" />
+        <result column="FETCH_PLATFORM" property="fetchPlatform" jdbcType="VARCHAR" />
+        <result column="KPI_NAME_COUNT_ORI" property="kpiNameCountOri" jdbcType="INTEGER" />
+        <result column="KPI_NAME_COUNT_NOW" property="kpiNameCountNow" jdbcType="INTEGER" />
+        <result column="KPI_COUNT_VALUE" property="kpiCountValue" jdbcType="INTEGER" />
+    </resultMap>
+
+
+    <select id="findeKpiByTimeRange" parameterType="java.util.Map" resultMap="BaseResultMap">
+
+        select t2.DATE_ID as DATE_ID,t1.FETCH_PLATFORM as FETCH_PLATFORM, t1.KPI_NAME_COUNT_ORI as KPI_NAME_COUNT_ORI,t2.KPI_NAME_COUNT_NOW as KPI_NAME_COUNT_NOW,
+        (t1.KPI_NAME_COUNT_ORI-t2.KPI_NAME_COUNT_NOW) as KPI_COUNT_VALUE from  (select v.DATE_ID as DATE_ID,k.FETCH_PLATFORM as FETCH_PLATFORM,count(DISTINCT(v.KPI_NAME))
+        AS KPI_NAME_COUNT_NOW from  NEI_VALUE v INNER JOIN NEI_KPI k on v.KPI_NAME=k.KPI_NAME where k.FETCH_WAY='自动提取' and v.DATE_ID &gt;=#{time1} and  v.DATE_ID &lt;=#{time2}
+         group by k.FETCH_PLATFORM,v.DATE_ID) t2 right join
+
+        (select FETCH_PLATFORM,count(DISTINCT(KPI_NAME)) AS KPI_NAME_COUNT_ORI from nei_kpi  where FETCH_WAY='自动提取' group by FETCH_PLATFORM) t1
+
+        on t2.FETCH_PLATFORM = t1.FETCH_PLATFORM  ORDER BY t2.DATE_ID
+
+
+    </select>
+</mapper>

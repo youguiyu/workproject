@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--  <link rel="icon" href="../../favicon.ico">-->
+
+    <title>2018年福建省NEI网络质量平台未送达达指标详情</title>
+
+    <link rel="stylesheet" href="../static/js/plugins/bootstrap/dist-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/js/plugins/bootstrap-table/dist-1.11.1/bootstrap-table.css">
+
+
+    <script src="../static/js/plugins/jquery/dist-3.2.1/jquery.js"></script>
+    <script src="../static/js/plugins/bootstrap/dist-3.3.7/js/bootstrap.js"></script>
+    <script src="../static/js/plugins/bootstrap-table/dist-1.11.1/bootstrap-table.js"></script>
+    <script src="../static/js/plugins/bootstrap-table/dist-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="../static/js/plugins/tableExport.js"></script>
+    <script src="../static/js/plugins/bootstrap-table/dist-1.11.1/extensions/export/bootstrap-table-export.js"></script>
+    <script src="../static/js/kpiInfoDetail.js"></script>
+
+
+</head>
+
+<body>
+
+<input type="hidden" name="dateId" th:value="${dateId}" id="dateId"/>
+<input type="hidden" name="fetchPlatform" th:value="${fetchPlatform}" id="fetchPlatform"/>
+<div class="panel-body" style="padding-bottom:0px;">
+
+
+    <div id="toolbar" class="btn-group">
+        <button id="btn_exprot" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>导出
+        </button>
+    </div>
+    <table id="testTable">
+    </table>
+</div>
+
+</body>
+</html>

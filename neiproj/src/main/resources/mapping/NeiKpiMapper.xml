@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xngls.neiproj.mapper.NeiKpiMapper" >
+
+    <resultMap id="BaseResultMap" type="com.xngls.neiproj.entity.NeiKpi" >
+        <result column="KPI_NAME" property="kpiName" jdbcType="VARCHAR" />
+        <result column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="KPI_INFO" property="kpiInfo" jdbcType="VARCHAR" />
+        <result column="KPI_DEFINITION" property="kpiDefinition" jdbcType="LONGVARCHAR" />
+        <result column="BUSINESS_TYPE" property="businessType" jdbcType="VARCHAR" />
+        <result column="DIMENSION" property="dimension" jdbcType="VARCHAR" />
+        <result column="SUB_DIMENSION" property="subDimension" jdbcType="VARCHAR" />
+        <result column="DEPARTMENT" property="department" jdbcType="VARCHAR" />
+        <result column="MANAGER" property="manager" jdbcType="VARCHAR" />
+        <result column="FETCH_PLATFORM" property="fetchPlatform" jdbcType="VARCHAR" />
+        <result column="FETCH_WAY" property="fetchWay" jdbcType="VARCHAR" />
+        <result column="TIME_GRANULARITY" property="timeGranularity" jdbcType="VARCHAR" />
+        <result column="AREA_GRANULARITY" property="areaGranularity" jdbcType="VARCHAR" />
+        <result column="BENCHMARK_VALUE" property="benchmarkValue" jdbcType="NUMERIC" />
+        <result column="CHALLENGE_VALUE" property="challengeValue" jdbcType="NUMERIC" />
+        <result column="FLAG_VALUE" property="flagValue" jdbcType="NUMERIC" />
+        <result column="IS_TREND" property="isTrend" jdbcType="BIT" />
+        <result column="OTHER" property="other" jdbcType="VARCHAR" />
+        <result column="KPI_WEIGHT" property="kpiWeight" jdbcType="NUMERIC" />
+        <result column="SORT" property="sort" jdbcType="INTEGER" />
+        <result column="audit" property="audit" jdbcType="VARCHAR" />
+        <result column="top_limit" property="topLimit" jdbcType="NUMERIC" />
+        <result column="lower_limit" property="lowerLimit" jdbcType="NUMERIC" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.xngls.neiproj.entity.NeiKpi" extends="BaseResultMap" >
+        <result column="KPI_INFO" property="kpiInfo" jdbcType="VARCHAR" />
+        <result column="KPI_DEFINITION" property="kpiDefinition" jdbcType="LONGVARCHAR" />
+        <result column="FETCH_ALGORITHM" property="fetchAlgorithm" jdbcType="LONGVARCHAR" />
+        <result column="FETCH_APPROACH" property="fetchApproach" jdbcType="LONGVARCHAR" />
+    </resultMap>
+    <sql id="Blob_Column_List" >
+        KPI_INFO, KPI_DEFINITION, FETCH_ALGORITHM, FETCH_APPROACH
+    </sql>
+    <insert id="insert" parameterType="com.xngls.neiproj.entity.NeiKpi" >
+        insert into NEI_KPI (KPI_NAME, ID, BUSINESS_TYPE,
+        DIMENSION, SUB_DIMENSION, DEPARTMENT,
+        MANAGER, FETCH_PLATFORM, FETCH_WAY,
+        TIME_GRANULARITY, AREA_GRANULARITY, BENCHMARK_VALUE,
+        CHALLENGE_VALUE, FLAG_VALUE, IS_TREND,
+        OTHER, KPI_WEIGHT, SORT,
+        KPI_INFO, KPI_DEFINITION, FETCH_ALGORITHM,
+        FETCH_APPROACH)
+        values (#{kpiName,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{businessType,jdbcType=VARCHAR},
+        #{dimension,jdbcType=VARCHAR}, #{subDimension,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR},
+        #{manager,jdbcType=VARCHAR}, #{fetchPlatform,jdbcType=VARCHAR}, #{fetchWay,jdbcType=VARCHAR},
+        #{timeGranularity,jdbcType=VARCHAR}, #{areaGranularity,jdbcType=VARCHAR}, #{benchmarkValue,jdbcType=NUMERIC},
+        #{challengeValue,jdbcType=NUMERIC}, #{flagValue,jdbcType=NUMERIC}, #{isTrend,jdbcType=BIT},
+        #{other,jdbcType=VARCHAR}, #{kpiWeight,jdbcType=NUMERIC}, #{sort,jdbcType=INTEGER},
+        #{kpiInfo,jdbcType=VARCHAR}, #{kpiDefinition,jdbcType=LONGVARCHAR}, #{fetchAlgorithm,jdbcType=LONGVARCHAR},
+        #{fetchApproach,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xngls.neiproj.entity.NeiKpi" >
+        insert into NEI_KPI
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="kpiName != null" >
+                KPI_NAME,
+            </if>
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="businessType != null" >
+                BUSINESS_TYPE,
+            </if>
+            <if test="dimension != null" >
+                DIMENSION,
+            </if>
+            <if test="subDimension != null" >
+                SUB_DIMENSION,
+            </if>
+            <if test="department != null" >
+                DEPARTMENT,
+            </if>
+            <if test="manager != null" >
+                MANAGER,
+            </if>
+            <if test="fetchPlatform != null" >
+                FETCH_PLATFORM,
+            </if>
+            <if test="fetchWay != null" >
+                FETCH_WAY,
+            </if>
+            <if test="timeGranularity != null" >
+                TIME_GRANULARITY,
+            </if>
+            <if test="areaGranularity != null" >
+                AREA_GRANULARITY,
+            </if>
+            <if test="benchmarkValue != null" >
+                BENCHMARK_VALUE,
+            </if>
+            <if test="challengeValue != null" >
+                CHALLENGE_VALUE,
+            </if>
+            <if test="flagValue != null" >
+                FLAG_VALUE,
+            </if>
+            <if test="isTrend != null" >
+                IS_TREND,
+            </if>
+            <if test="other != null" >
+                OTHER,
+            </if>
+            <if test="kpiWeight != null" >
+                KPI_WEIGHT,
+            </if>
+            <if test="sort != null" >
+                SORT,
+            </if>
+            <if test="kpiInfo != null" >
+                KPI_INFO,
+            </if>
+            <if test="kpiDefinition != null" >
+                KPI_DEFINITION,
+            </if>
+            <if test="fetchAlgorithm != null" >
+                FETCH_ALGORITHM,
+            </if>
+            <if test="fetchApproach != null" >
+                FETCH_APPROACH,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="kpiName != null" >
+                #{kpiName,jdbcType=VARCHAR},
+            </if>
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="businessType != null" >
+                #{businessType,jdbcType=VARCHAR},
+            </if>
+            <if test="dimension != null" >
+                #{dimension,jdbcType=VARCHAR},
+            </if>
+            <if test="subDimension != null" >
+                #{subDimension,jdbcType=VARCHAR},
+            </if>
+            <if test="department != null" >
+                #{department,jdbcType=VARCHAR},
+            </if>
+            <if test="manager != null" >
+                #{manager,jdbcType=VARCHAR},
+            </if>
+            <if test="fetchPlatform != null" >
+                #{fetchPlatform,jdbcType=VARCHAR},
+            </if>
+            <if test="fetchWay != null" >
+                #{fetchWay,jdbcType=VARCHAR},
+            </if>
+            <if test="timeGranularity != null" >
+                #{timeGranularity,jdbcType=VARCHAR},
+            </if>
+            <if test="areaGranularity != null" >
+                #{areaGranularity,jdbcType=VARCHAR},
+            </if>
+            <if test="benchmarkValue != null" >
+                #{benchmarkValue,jdbcType=NUMERIC},
+            </if>
+            <if test="challengeValue != null" >
+                #{challengeValue,jdbcType=NUMERIC},
+            </if>
+            <if test="flagValue != null" >
+                #{flagValue,jdbcType=NUMERIC},
+            </if>
+            <if test="isTrend != null" >
+                #{isTrend,jdbcType=BIT},
+            </if>
+            <if test="other != null" >
+                #{other,jdbcType=VARCHAR},
+            </if>
+            <if test="kpiWeight != null" >
+                #{kpiWeight,jdbcType=NUMERIC},
+            </if>
+            <if test="sort != null" >
+                #{sort,jdbcType=INTEGER},
+            </if>
+            <if test="kpiInfo != null" >
+                #{kpiInfo,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="kpiDefinition != null" >
+                #{kpiDefinition,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="fetchAlgorithm != null" >
+                #{fetchAlgorithm,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="fetchApproach != null" >
+                #{fetchApproach,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="getList"  resultType="com.xngls.neiproj.entity.NeiKpi"
+            resultMap="ResultMapWithBLOBs">
+        select * from NEI_KPI order by BUSINESS_TYPE,DIMENSION,SUB_DIMENSION
+    </select>
+
+    <select id="findNeiKpiByKpiInfo"  resultType="java.lang.String"
+            resultMap="BaseResultMap">
+        select * from NEI_KPI where KPI_INFO=#{kpiInfo}
+    </select>
+
+    <select id="findNeiKpiByKpiName"  resultType="java.lang.String"
+            resultMap="BaseResultMap">
+        select * from NEI_KPI where KPI_NAME=#{kpiName}
+    </select>
+
+    <select id="findNeiKpiByKpiInfo2"  resultType="java.lang.String"
+            resultMap="BaseResultMap">
+        select * from NEI_KPI where KPI_INFO=#{kpiInfo}
+    </select>
+
+
+    <select id="findXiangqingData" parameterType="java.util.Map"  resultType="java.lang.String"
+            resultMap="BaseResultMap">
+
+        select * from NEI_KPI where FETCH_PLATFORM=#{fetchPlatform} and FETCH_WAY='自动提取' and KPI_NAME not in
+
+        (select DISTINCT(v.KPI_NAME)
+        from NEI_VALUE v INNER JOIN NEI_KPI k on v.KPI_NAME = k.KPI_NAME where v.DATE_ID=#{dateId} and FETCH_WAY='自动提取' and k.FETCH_PLATFORM=#{fetchPlatform})
+
+    </select>
+
+
+    <select id="getKpiAllInfo" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+
+        select * from NEI_KPI where KPI_INFO like  '%'+#{serarchText}+'%' or KPI_DEFINITION like '%'+#{serarchText}+'%'
+
+    </select>
+
+    <select id="getKpiAllInfo1" parameterType="java.lang.String"
+            resultMap="BaseResultMap">
+
+        select * from NEI_KPI where audit='y' and KPI_INFO like  '%'+#{serarchText}+'%' or KPI_DEFINITION like '%'+#{serarchText}+'%'
+
+    </select>
+
+    <select id="getKpiAllInfotemp1"
+            resultMap="BaseResultMap">
+
+        select * from NEI_KPI where audit='y'
+
+    </select>
+
+    <select id="getKpiAllInfotemp"
+            resultMap="BaseResultMap">
+
+        select * from NEI_KPI
+
+    </select>
+
+
+
+
+
+</mapper>
