@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.lteproj.mapper.WlwLinkMaxMapper" >
+    <resultMap id="BaseResultMap" type="com.ygy.lteproj.entity.WlwLinkMax" >
+
+        <result column="date_id" property="dateId" jdbcType="INTEGER" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="apn" property="apn" jdbcType="VARCHAR" />
+        <result column="xdr_type" property="xdrType" jdbcType="VARCHAR" />
+
+    </resultMap>
+    <sql id="Base_Column_List" >
+        date_id,<![CDATA[type]]>,apn,xdr_type
+    </sql>
+    <select id="findMaxData" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from f_cmcc_wlw_link_max_cjj where date_id=#{yesDate}
+</select>
+
+
+</mapper>

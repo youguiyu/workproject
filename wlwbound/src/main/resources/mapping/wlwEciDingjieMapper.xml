@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.wlwbound.dao.WlwEciDingjieDao" >
+
+
+    <select id="get4GTableData" parameterType="java.lang.Integer" resultType="com.ygy.wlwbound.entity.WlwEciDingjie">
+
+         select date_id,city_name,county_name,cell_name,honeycomb_type,vendor_name
+        ,ws_name,eci,Convert(decimal(18,2),attach_suc_rate*100) as attach_suc_rate,attach_count, Convert(decimal(18,2),attach_suc_rate_reference*100) as attach_suc_rate_reference,attach_count_reference,
+        Convert(decimal(18,2),attach_succ_rate_4g*100) as attach_succ_rate_4g,
+        Convert(decimal(18,0),attach_cnt_4g) as attach_cnt_4g,result_flag    from dbo.wlw_eci_dingjie_s1mme_result_cjj
+         where date_id = #{timeselect}
+        order by attach_suc_rate asc
+
+
+    </select>
+    <select id="findMaxTime"  resultType="java.lang.Integer">
+        select MAX(date_id)as masdateid from wlw_eci_dingjie_s1mme_result_cjj
+    </select>
+
+    <select id="get2GTableData" parameterType="java.lang.Integer" resultType="com.ygy.wlwbound.entity.WlwEciPdpDingjie">
+
+
+        select date_id,city_name,county_name,towns_name,cell_name,out_in_door,ws_name,lac
+        ,cid, Convert(decimal(18,2),pdp_suc_rate*100) as pdp_suc_rate,pdp_count,
+         Convert(decimal(18,2),pdp_suc_rate_reference*100) as pdp_suc_rate_reference,
+         pdp_count_reference,result_flag
+         from dbo.wlw_eci_dingjie_pdp_result_cjj
+
+        where date_id = #{timeselect}
+        order by pdp_suc_rate asc
+
+
+    </select>
+
+    <select id="getZhicha4gData" parameterType="java.util.Map" resultType="com.ygy.wlwbound.entity.WlwEci4gDingjie">
+
+
+        select date_id,city_name,county_name,cell_name,honeycomb_type,vendor_name
+        ,ws_name,eci,Convert(decimal(18,2),attach_suc_rate*100) as attach_suc_rate,attach_count, Convert(decimal(18,2),attach_suc_rate_reference*100) as attach_suc_rate_reference,attach_count_reference,
+        Convert(decimal(18,2),attach_succ_rate_4g*100) as attach_succ_rate_4g,
+        Convert(decimal(18,0),attach_cnt_4g*100) as attach_cnt_4g,
+        model_name,model_desc,user_count_s1mme_model,
+         attach_count_model,
+         Convert(decimal(18,2),attach_suc_rate_model*100) as attach_suc_rate_model,
+         apn,name,
+         user_count_s1mme_apn,
+         attach_count_apn,
+        Convert(decimal(18,2),attach_suc_rate_apn*100) as attach_suc_rate_apn,
+
+         result_flag,attach_suc_rate_reference_flag,terminal_s1mme_flag,
+         attach_suc_rate_4g_flag,apn_s1mme_flag
+
+         from dbo.wlw_eci_dingjie_s1mme_result_cjj
+
+        where date_id=#{dateId} and city_name=#{cityName}  and eci=#{eci}
+
+
+    </select>
+
+    <select id="getZhicha2gData" parameterType="java.util.Map" resultType="com.ygy.wlwbound.entity.WlwEciPdp2gDingjie">
+
+
+       select date_id,city_name,county_name,towns_name,cell_name,out_in_door,ws_name,lac
+        ,cid, Convert(decimal(18,2),pdp_suc_rate*100) as pdp_suc_rate,pdp_count,
+         Convert(decimal(18,2),pdp_suc_rate_reference*100) as pdp_suc_rate_reference,
+         pdp_count_reference,result_flag,model_name,model_desc,user_count_pdp_model,pdp_count_model,
+
+         Convert(decimal(18,2),pdp_suc_rate_model*100) as pdp_suc_rate_model,apn,name,user_count_pdp_apn,pdp_count_apn,
+         Convert(decimal(18,2),pdp_suc_rate_apn*100) as pdp_suc_rate_apn,pdp_suc_rate_reference_flag,
+         terminal_pdp_flag,apn_pdp_flag
+
+
+         from dbo.wlw_eci_dingjie_pdp_result_cjj
+
+        where date_id=#{dateId} and city_name=#{cityName}  and cid=#{cid} and lac=#{lac}
+
+
+    </select>
+</mapper>

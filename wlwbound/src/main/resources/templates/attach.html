@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>物联网定界专题</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/bootstrap-3.3.7/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/attach.css" rel="stylesheet">
+</head>
+<body>
+<input type="hidden" name="apn" th:value="${apn}" id="apn"/>
+<input type="hidden" name="dateId" th:value="${dateId}" id="dateId"/>
+<input type="hidden" name="type" th:value="${type}" id="type"/>
+<input type="hidden" name="name" th:value="${name}" id="name"/>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="page-header">
+            <h1 id="usercounttitle">20180702物联网重点行业APN异常监测及问题自动定界</h1>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <table id="tableData" class="table table-responsive table-bordered table-striped" >
+            <thead>
+            <tr class="info">
+                <th>重点APN</th>
+                <th>专网名称</th>
+                <th>主要业务承载制式</th>
+                <th>附着成功率（%）</th>
+                <th>成功率阈值（%）</th>
+                <th>附着次数</th>
+                <th>附着次数上月均值</th>
+                <th>附着次数环比（%）</th>
+                <th>大网附着成功率（%）</th>
+                <th>前日大网附着成功率（%）</th>
+                <th>是否异常</th>
+                <th>异常疑似原因</th>
+                <th>问题定界流程</th>
+            </tr>
+            </thead>
+            <tbody id="usercountBody"></tbody>
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" id="light">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href = "javascript:closewin();" ><img src="../static/img/close2.png" class="colse-puttton" id="closeButtonId"/></a>
+            </div>
+        </div>
+        <div class="row" style="border-top: 1px solid lightgray; border-top-color:lightgray; padding: 5px;">
+
+            <div class="clearfix"></div>
+            <div class="view-left" id="id-view-left">
+                <p class="view-left-p" id="djlcmc">厦门航标处航标灯远程监控(XMHBC.FJ)日活用户数</p>
+                <p>
+                    <label class="view-left-label">日期：</label>
+                    <code id="riqi">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">APN：</label>
+                    <code id="apnn">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">APN名称：</label>
+                    <code id="apnmc">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">主要业务承载制式：</label>
+                    <code id="ywczs">加载中</code>
+                </p>
+
+                <p>
+                    <label class="view-left-label">附着成功率(%)：</label>
+                    <code id="fzcgl">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">成功率阈值（%）：</label>
+                    <code id="cglfz">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">附着次数（次）：</label>
+                    <code id="myhsll">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">附着次数上月均值（次）：</label>
+                    <code id="myhllsyjz">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">附着次数环比（%）：</label>
+                    <code id="myhllhb">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">大网附着成功率（%）：</label>
+                    <code id="dwhyhs">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">前日大网附着成功率（%）：</label>
+                    <code id="qrdwhyyhs">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">其他重点APN总附着成功率（%）：</label>
+                    <code id="qtzdapnzhyhs">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">其他重点APN总成功率阈值：</label>
+                    <code id="qtzdapnzhyhsjz">加载中</code>
+                </p>
+
+            </div>
+            <div class="view-right" id="id-view-right">
+
+                <div class="view-right-block" id="zwhyyhsdiv">
+
+                    <span class="view-right-span">专网附着成功率</span>
+                    <div class="view-right-block-div" id="zwhyyhs">
+
+                        <div class="row">
+                            <div class="col-md-6">XX个</div>
+                            <div class="col-md-4">
+                                <img src="../static/img/upW.png" /> xx%
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="view-right-line-1">
+
+                </div>
+                <div class="view-right-block" id="fzcglldiv">
+                    <span class="view-right-span">附着次数</span>
+                    <div class="view-right-block-div" id="fzcgll">
+                       <span class="view-right-block-div-span">
+                         加载中
+                       </span>
+                    </div>
+
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="view-right-line-31">
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="view-right-block">
+                    <span class="view-right-span">其他重点APN总附着成功率</span>
+                    <div class="view-right-block-div" id="dwhyyhss">
+                       <span class="view-right-block-div-span">
+                         加载中
+                       </span>
+                    </div>
+
+                </div>
+                <div class="view-right-line-12"></div>
+                <div class="view-right-block" id="myhsllldiv">
+                    <span class="view-right-span">大网附着成功率</span>
+                    <div class="view-right-block-div" id="myhslll">
+                       <span class="view-right-block-div-span">
+                         加载中
+                       </span>
+                    </div>
+
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="view-right-line-32">
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="view-right-block" id="qitazhogndianapndiv">
+                    <span class="view-right-span">大网质差MME成功率</span>
+                    <div class="view-right-block-div" id="qitazhogndianapn">
+                       <span class="view-right-block-div-span">
+                        加载中
+                       </span>
+                    </div>
+
+                </div>
+                <div class="view-right-line-1"></div>
+                <div class="view-right-block1"  id="zlzdcgldiv">
+                    <div class="row" id="zczdcgldiv">
+                        <span class="view-right-span">质差终端成功率</span>
+                        <div class="view-right-block-div" id="zczdcgl">
+
+                            <div class="row view-right-block-div-span">
+                                <div class="col-md-6">（华为|P20）YY|xx%</div>
+                                <div class="col-md-6">
+                                    <img src="../static/img/upW.png" /> xx%
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="border:1px dashed #ffffff;margin-bottom: 0px;margin-top: 10px;margin-left:7px;margin-right: 7px;">
+                    <div class="row">
+                        <span class="view-right-span">质好终端成功率</span>
+                        <div class="view-right-block-div" id="zhzdcgl">
+                           <span class="view-right-block-div-span">
+                           加载中
+                           </span>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+                <div>
+
+
+                    <div class="clearfix"></div>
+                    <div class="view-right-line-2">
+                    </div>
+
+                    <div class="view-conclusion" id="id-view">
+                        <span class="view-conclusion-span">定界结论：加载中</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+
+</div>
+
+<script type="text/javascript" src="../static/js/jquery-3.0.0.min.js"></script>
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/laydate/laydate.js"></script>
+<script type="text/javascript" src="../static/js/echarts.min.js"></script>
+
+
+<script src="../static/js/bootstrap-table.min.js"></script>
+<script src="../static/js/bootstrap-table-zh-CN.min.js"></script>
+
+<script type="text/javascript" src="../static/js/attach.js"></script>
+
+</body>
+</html>

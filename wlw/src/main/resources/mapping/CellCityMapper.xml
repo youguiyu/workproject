@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.lteproj.mapper.CellCityMapper" >
+    <resultMap id="BaseResultMap" type="com.ygy.lteproj.entity.CellCity" >
+        <id column="DATE_ID" property="dateId" jdbcType="INTEGER" />
+        <result column="City_ID" property="cityId" jdbcType="INTEGER" />
+        <result column="CITY_Name" property="cityName" jdbcType="VARCHAR" />
+        <result column="KPI_001" property="kpi001" jdbcType="INTEGER" />
+        <result column="KPI_002" property="kpi002" jdbcType="INTEGER" />
+        <result column="KPI_003" property="kpi003" jdbcType="INTEGER" />
+        <result column="KPI_004" property="kpi004" jdbcType="INTEGER" />
+        <result column="KPI_005" property="kpi005" jdbcType="INTEGER" />
+        <result column="KPI_006" property="kpi006" jdbcType="INTEGER" />
+        <result column="KPI_007" property="kpi007" jdbcType="INTEGER" />
+        <result column="KPI_008" property="kpi008" jdbcType="INTEGER" />
+        <result column="KPI_009" property="kpi009" jdbcType="INTEGER" />
+        <result column="KPI_010" property="kpi010" jdbcType="INTEGER" />
+        <result column="KPI_011" property="kpi011" jdbcType="INTEGER" />
+        <result column="KPI_012" property="kpi012" jdbcType="INTEGER" />
+        <result column="KPI_013" property="kpi013" jdbcType="INTEGER" />
+        <result column="THRESHOLD_DATE" property="thresholdDate" jdbcType="INTEGER" />
+
+    </resultMap>
+    <sql id="Base_Column_List" >
+        DATE_ID,City_ID,CITY_Name,KPI_001,KPI_002,KPI_003,KPI_004,KPI_005,KPI_006,KPI_007,KPI_008,KPI_009,KPI_010,KPI_011,KPI_012,KPI_013,THRESHOLD_DATE
+    </sql>
+
+    <select id="getCellCityByDate" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from F_ALARM_TERMINAL_APP_CELL_CITY where DATE_ID=#{dateId} order by city_id asc
+    </select>
+
+    <select id="getCellCityByCityName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from F_ALARM_TERMINAL_APP_CELL_CITY where CITY_Name=#{cityName}
+    </select>
+
+
+
+
+
+</mapper>

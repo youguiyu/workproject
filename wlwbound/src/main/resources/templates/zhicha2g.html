@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>物联网定界专题</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/bootstrap-3.3.7/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../static/css/flow.css" rel="stylesheet">
+</head>
+<body>
+<input type="hidden" name="dateId" th:value="${dateId}" id="dateId"/>
+<input type="hidden" name="cityName" th:value="${cityName}" id="cityName"/>
+<input type="hidden" name="cid" th:value="${cid}" id="cid"/>
+<input type="hidden" name="lac" th:value="${lac}" id="lac"/>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="page-header">
+            <h1 id="zhichatitle">20180702物联网小区质差定界</h1>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" >
+
+        <div class="row" >
+
+            <div class="clearfix"></div>
+            <div class="view-left" id="id-view-left">
+                <p>
+                    <label class="view-left-label">日期：</label>
+                    <code id="riqi">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">小区名称：</label>
+                    <code id="cell_name">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">LAC：</label>
+                    <code id="lacdata">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">CI：</label>
+                    <code id="cidata">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">地市：</label>
+                    <code id="city_name">加载中</code>
+                </p>
+
+                <p>
+                    <label class="view-left-label">区县：</label>
+                    <code id="county_name">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">乡镇：</label>
+                    <code id="towns_name">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">室内/外：</label>
+                    <code id="out_in_door">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">覆盖场景：</label>
+                    <code id="ws_name">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">激活成功率（%）：</label>
+                    <code id="pdp_suc_rate">加载中</code>
+                </p>
+
+                <p>
+                    <label class="view-left-label">激活成功率阈值（%）：</label>
+                    <code id="pdpmaxvalue">80</code>
+                </p>
+
+                <p>
+                    <label class="view-left-label">上周参考值（%）：</label>
+                    <code id="pdp_suc_rate_reference">加载中</code>
+                </p>
+
+                <p>
+                    <label class="view-left-label">该小区质差终端品牌：</label>
+                    <code id="model_name">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">该小区质差终端型号：</label>
+                    <code id="model_desc">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">该小区质差终端用户数：</label>
+                    <code id="user_count_pdp_model">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">该小区质差终端激活次数：</label>
+                    <code id="pdp_count_model">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">该小区质差终端激活成功率（%）：</label>
+                    <code id="pdp_suc_rate_model">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">该小区质差专网APN：</label>
+                    <code id="apn">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">该小区质差专网名称：</label>
+                    <code id="name">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">该小区质差专网用户数：</label>
+                    <code id="user_count_pdp_apn">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">该小区质差专网附着次数：</label>
+                    <code id="pdp_count_apn">加载中</code>
+                </p>
+                <p>
+                    <label class="view-left-label">该小区质差专网附着成功率（%）：</label>
+                    <code id="pdp_suc_rate_apn">加载中</code>
+                </p>
+
+            </div>
+            <div class="view-right" id="id-view-right">
+
+                <div class="view-right-block" id="zwhyyhsdiv">
+
+                    <span class="view-right-span">该小区附着成功率||阈值</span>
+                    <div class="view-right-block-div" id="zwhyyhs">
+
+                        <div class="row">
+                            <div class="col-md-6">XX个</div>
+                            <div class="col-md-4">
+                                <img src="../static/img/upW.png" /> xx%
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="view-right-line-1">
+
+                </div>
+                <div class="view-right-block" id="fzcglldiv">
+                    <span class="view-right-span">该小区上周参考值||与参考值差</span>
+                    <div class="view-right-block-div" id="fzcgll">
+                       <span class="view-right-block-div-span">
+                         加载中
+                       </span>
+                    </div>
+
+                </div>
+
+                <!--<div class="clearfix"></div>-->
+                <!--<div class="view-right-line-2">-->
+                <!--</div>-->
+                <!--<div class="clearfix"></div>-->
+                <!--<div class="view-right-block11">-->
+
+
+                <!--</div>-->
+
+                <!--<div class="view-right-line-111"></div>-->
+                <!--<div class="view-right-block" id="myhsllldiv">-->
+                    <!--<span class="view-right-span">该小区人网附着成功率||阈值</span>-->
+                    <!--<div class="view-right-block-div" id="myhslll">-->
+                       <!--<span class="view-right-block-div-span">-->
+                         <!--加载中-->
+                       <!--</span>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+
+                <div class="clearfix"></div>
+                <div class="view-right-line-21">
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="view-right-blockk" id="qitazhogndianapndiv">
+                    <span class="view-right-span">该小区质差终端成功率||阈值</span>
+                    <div class="view-right-block-div" id="qitazhogndianapn">
+                       <span class="view-right-block-div-spann">
+                        加载中
+                       </span>
+                    </div>
+
+                </div>
+                <div class="view-right-line-1"></div>
+                <div class="view-right-blockk" id="zlzdcgldiv">
+                    <span class="view-right-span">该小区质差专网成功率||阈值</span>
+                    <div class="view-right-block-div" id="zczdcgldiv">
+                       <span class="view-right-block-div-span">
+                        加载中
+                       </span>
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <div class="clearfix"></div>
+                    <div class="view-right-line-21">
+                    </div>
+
+                    <div class="view-conclusion" id="id-view">
+                        <span class="view-conclusion-span">定界结论：加载中</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+
+</div>
+
+<script type="text/javascript" src="../static/js/jquery-3.0.0.min.js"></script>
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/laydate/laydate.js"></script>
+<script type="text/javascript" src="../static/js/echarts.min.js"></script>
+
+
+<script src="../static/js/bootstrap-table.min.js"></script>
+
+<script type="text/javascript" src="../static/js/zhicha2g.js"></script>
+
+</body>
+</html>

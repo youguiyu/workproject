@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.wlwbound.dao.WlwApnDingjieDao" >
+    <resultMap id="BaseResultMap" type="com.ygy.wlwbound.entity.WlwApnDingjie" >
+
+        <result column="date_id" property="dateId" jdbcType="INTEGER" />
+        <result column="apn" property="apn" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="user_count" property="userCount" jdbcType="BIGINT" />
+        <result column="attach_count" property="attachCount" jdbcType="BIGINT" />
+        <result column="flow_kb" property="flowKb" jdbcType="NUMERIC" />
+        <result column="attach_suc_rate" property="attachCountRate" jdbcType="NUMERIC" />
+        <result column="user_count_dingjie_conclusion" property="userCountDingjieConclusion" jdbcType="VARCHAR" />
+        <result column="flow_dingjie_conclusion" property="flowDingjieConclusion" jdbcType="VARCHAR" />
+
+        <result column="attach_suc_rate_dingjie_conclusion" property="attachSucRateDingjieConclusion" jdbcType="VARCHAR" />
+        <result column="pdp_suc_rate_dingjie_conclusion" property="pdpSucRateDingjieConclusion" jdbcType="VARCHAR" />
+
+
+
+    </resultMap>
+
+    <select id="findWlwApnByTime" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+        select
+        date_id,apn,name,type,user_count,(flow_kb/1024/1024) as flow_kb,(attach_suc_rate*100) as attach_suc_rate,user_count_dingjie_conclusion,flow_dingjie_conclusion
+        ,attach_count,attach_suc_rate_dingjie_conclusion,pdp_suc_rate_dingjie_conclusion
+        from wlw_apn_dingjie_cjj
+        <where>
+            <if test="_parameter!=null and _parameter!=''">
+                date_id = #{_parameter,jdbcType=INTEGER}
+            </if>
+
+
+        </where>
+        ORDER  BY user_count desc
+
+
+    </select>
+
+    <select id="findMaxTime"  resultType="java.lang.Integer">
+        select MAX(date_id)as masdateid from wlw_apn_dingjie_cjj
+    </select>
+    <select id="findApnBytiaojia" parameterType="java.util.Map" resultType="com.ygy.wlwbound.entity.WlwApnUsercountDingjie">
+
+        select
+        date_id,apn,name,type,user_count,user_count_reference,Convert(decimal(18,3),(user_count_rate*100)) as user_count_rate,
+        Convert(decimal(18,3),(attach_suc_rate*100)) as attach_suc_rate,Convert(decimal(18,3),(attach_line*100)) as attach_line,(pdp_line*100) as pdp_line ,Convert(decimal(18,3),per_user_flow_kb) as per_user_flow_kb
+        ,Convert(decimal(18,3),per_user_flow_kb_reference) as per_user_flow_kb_reference,Convert(decimal(18,3),(per_user_flow_kb_rate*100)) as per_user_flow_kb_rate,(imsi_cnt_today/10000) as imsi_cnt_today,
+        (imsi_cnt_yes/10000) as imsi_cnt_yes,user_count_dingjie_conclusion,user_count_others,user_count_reference_others,
+        Convert(decimal(18,3),(user_count_others_rate*100)) as user_count_others_rate,Convert(decimal(18,3),(attach_suc_ratio*100)) as attach_suc_ratio,user_count_flag,attach_suc_rate_flag,
+        per_user_flow_flag,user_count_others_flag,model_name_bad,model_desc_bad,user_count_model_bad,Convert(decimal(18,3),(model_attach_suc_rate_bad*100)) as model_attach_suc_rate_bad,
+        Convert(decimal(18,3),(model_attach_suc_rate_bad_ratio*100)) as model_attach_suc_rate_bad_ratio,model_name_good,model_desc_good,user_count_model_good,
+        Convert(decimal(18,3),(model_attach_suc_rate_good*100)) as model_attach_suc_rate_good,Convert(decimal(18,3),(model_attach_suc_rate_good_ratio*100)) as model_attach_suc_rate_good_ratio,
+        model_flag
+        from wlw_apn_dingjie_cjj
+        <where>
+            <if test="apn!=null and apn!=''">
+                apn = #{apn} and
+            </if>
+
+            <if test="dateId!=null and dateId!=''">
+                date_id = #{dateId} and
+            </if>
+            <if test="type!=null and type!=''">
+                type = #{type}
+            </if>
+
+        </where>
+
+
+
+    </select>
+
+    <select id="findApnBytiaojia2" parameterType="java.util.Map" resultType="com.ygy.wlwbound.entity.WlwApnFlowDingjie">
+
+        select
+        date_id,apn,name,type,Convert(decimal(18,3),(flow_kb/1024/1024)) as flow_kb,Convert(decimal(18,3),(flow_kb_reference/1024/1024)) as flow_kb_reference,Convert(decimal(18,3),(flow_kb_rate*100)) as flow_kb_rate,
+        Convert(decimal(18,3),(attach_suc_rate*100)) as attach_suc_rate,Convert(decimal(18,3),(attach_line*100)) as attach_line,Convert(decimal(18,3),(pdp_line*100)) as pdp_line ,Convert(decimal(18,3),per_user_flow_kb) as per_user_flow_kb
+        ,Convert(decimal(18,3),per_user_flow_kb_reference) as per_user_flow_kb_reference,Convert(decimal(18,3),(per_user_flow_kb_rate*100)) as per_user_flow_kb_rate,flow_dingjie_conclusion
+        ,Convert(decimal(18,3),(flow_kb_others/1024/1024)) as flow_kb_others, Convert(decimal(18,3),(flow_kb_reference_others/1024/1024)) as flow_kb_reference_others,Convert(decimal(18,3),(flow_kb_others_rate*100)) as flow_kb_others_rate,
+        Convert(decimal(18,3),(attach_suc_ratio*100)) as attach_suc_ratio,
+        user_count_flag,
+        attach_suc_rate_flag,
+        per_user_flow_flag,
+        user_count_others_flag,
+        model_name_bad,
+        model_desc_bad,
+        user_count_model_bad,
+        Convert(decimal(18,3),(model_attach_suc_rate_bad*100)) as model_attach_suc_rate_bad,
+        Convert(decimal(18,3),(model_attach_suc_rate_bad_ratio*100)) as model_attach_suc_rate_bad_ratio,
+        model_name_good,
+        model_desc_good,
+        user_count_model_good,
+        Convert(decimal(18,3),(model_attach_suc_rate_good*100)) as model_attach_suc_rate_good,
+        Convert(decimal(18,3),(model_attach_suc_rate_good_ratio*100)) as model_attach_suc_rate_good_ratio,
+        model_flag,
+        flow_kb_others_flag,
+        flow_kb_flag
+
+        from wlw_apn_dingjie_cjj
+        <where>
+            <if test="apn!=null and apn!=''">
+                apn = #{apn} and
+            </if>
+
+            <if test="dateId!=null and dateId!=''">
+                date_id = #{dateId} and
+            </if>
+            <if test="type!=null and type!=''">
+                type = #{type}
+            </if>
+
+        </where>
+
+
+
+    </select>
+
+    <select id="findApnBytiaojia3" parameterType="java.util.Map" resultType="com.ygy.wlwbound.entity.WlwApnAttachDingjie">
+
+        select
+        date_id,apn,name,type, Convert(decimal(18,3),(attach_suc_rate*100)) as attach_suc_rate, Convert(decimal(18,3),(attach_line*100)) as attach_line, Convert(decimal(18,3),(pdp_line*100)) as pdp_line
+        ,attach_count
+        ,attach_count_reference, Convert(decimal(18,3),(attach_count_rate*100)) as attach_count_rate, Convert(decimal(18,3),attach_succ_rate_today) as attach_succ_rate_today, Convert(decimal(18,3),attach_succ_rate_yes) as attach_succ_rate_yes,attach_suc_rate_dingjie_conclusion
+        ,attach_count_flag,
+        Convert(decimal(18,3),(attach_count_others_rate*100)) as attach_count_others_rate,
+        attach_suc_others_rate_flag,
+        Convert(decimal(18,3),(attach_suc_ratio*100)) as attach_suc_ratio,
+        attach_suc_rate_flag,
+        Convert(decimal(18,3),(mme_attach_succ_rate_bad*100)) as mme_attach_succ_rate_bad,
+        Convert(decimal(18,3),(mme_attach_succ_rate_bad_ratio*100)) as mme_attach_succ_rate_bad_ratio,
+        mme_attach_succ_rate_flag,
+        model_name_bad,
+        model_desc_bad,
+        user_count_model_bad,
+        Convert(decimal(18,3),(model_attach_suc_rate_bad*100)) as model_attach_suc_rate_bad,
+        Convert(decimal(18,3),(model_attach_suc_rate_bad_ratio*100)) as model_attach_suc_rate_bad_ratio,
+        model_name_good,
+        model_desc_good,
+        user_count_model_good,
+        Convert(decimal(18,3),(model_attach_suc_rate_good*100)) as model_attach_suc_rate_good,
+        Convert(decimal(18,3),(model_attach_suc_rate_good_ratio*100)) as model_attach_suc_rate_good_ratio,
+        model_flag
+
+        from wlw_apn_dingjie_cjj
+
+        <where>
+            <if test="apn!=null and apn!=''">
+                apn = #{apn} and
+            </if>
+
+            <if test="dateId!=null and dateId!=''">
+                date_id = #{dateId} and
+            </if>
+            <if test="type!=null and type!=''">
+                type = #{type}
+            </if>
+
+        </where>
+
+
+
+    </select>
+
+
+    <select id="findApnBytiaojia4" parameterType="java.util.Map" resultType="com.ygy.wlwbound.entity.WlwApnPdpDingjie">
+
+        select
+
+
+        date_id,apn,name,type, Convert(decimal(18,3),(attach_suc_rate*100)) as attach_suc_rate, Convert(decimal(18,3),(attach_line*100)) as attach_line, Convert(decimal(18,3),(pdp_line*100)) as pdp_line
+        ,attach_count
+        ,attach_count_reference, Convert(decimal(18,3),(attach_count_rate*100)) as attach_count_rate, Convert(decimal(18,3),attach_succ_rate_today) as attach_succ_rate_today, Convert(decimal(18,3),attach_succ_rate_yes) as attach_succ_rate_yes,pdp_suc_rate_dingjie_conclusion
+        ,attach_count_flag,
+        Convert(decimal(18,3),(attach_count_others_rate*100)) as attach_count_others_rate,
+        attach_suc_others_rate_flag,
+        Convert(decimal(18,3),(attach_suc_ratio*100)) as attach_suc_ratio,
+        attach_suc_rate_flag,
+        Convert(decimal(18,3),(mme_attach_succ_rate_bad*100)) as mme_attach_succ_rate_bad,
+        Convert(decimal(18,3),(mme_attach_succ_rate_bad_ratio*100)) as mme_attach_succ_rate_bad_ratio,
+        mme_attach_succ_rate_flag,
+        model_name_bad,
+        model_desc_bad,
+        user_count_model_bad,
+        Convert(decimal(18,3),(model_attach_suc_rate_bad*100)) as model_attach_suc_rate_bad,
+        Convert(decimal(18,3),(model_attach_suc_rate_bad_ratio*100)) as model_attach_suc_rate_bad_ratio,
+        model_name_good,
+        model_desc_good,
+        user_count_model_good,
+        Convert(decimal(18,3),(model_attach_suc_rate_good*100)) as model_attach_suc_rate_good,
+        Convert(decimal(18,3),(model_attach_suc_rate_good_ratio*100)) as model_attach_suc_rate_good_ratio,
+        model_flag
+
+
+        from wlw_apn_dingjie_cjj
+        <where>
+            <if test="apn!=null and apn!=''">
+                apn = #{apn} and
+            </if>
+
+            <if test="dateId!=null and dateId!=''">
+                date_id = #{dateId} and
+            </if>
+            <if test="type!=null and type!=''">
+                type = #{type}
+            </if>
+
+        </where>
+
+
+
+    </select>
+
+    <select id="findUserByTimeRange" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select date_id,apn ,name,user_count_dingjie_conclusion from wlw_apn_dingjie_cjj
+        where user_count_dingjie_conclusion !='专网运行正常' and date_id &gt;=#{timeLeft} and date_id &lt;=#{timeRight}
+        order by date_id asc
+
+    </select>
+
+    <select id="findFlowByTimeRange" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select date_id,apn ,name,flow_dingjie_conclusion from wlw_apn_dingjie_cjj
+        where flow_dingjie_conclusion !='专网运行正常' and date_id &gt;=#{timeLeft} and date_id &lt;=#{timeRight}
+        order by date_id asc
+    </select>
+
+    <select id="findAttachByTimeRange" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select date_id,apn ,name,attach_suc_rate_dingjie_conclusion from wlw_apn_dingjie_cjj
+        where attach_suc_rate_dingjie_conclusion !='专网运行正常' and date_id &gt;=#{timeLeft} and date_id &lt;=#{timeRight}
+        order by date_id asc
+
+    </select>
+
+    <select id="findPdpByTimeRange" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select date_id,apn ,name,pdp_suc_rate_dingjie_conclusion from wlw_apn_dingjie_cjj
+        where pdp_suc_rate_dingjie_conclusion !='专网运行正常' and date_id &gt;=#{timeLeft} and date_id &lt;=#{timeRight}
+         order by date_id asc
+
+    </select>
+</mapper>

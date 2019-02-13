@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.lteproj.mapper.FWywjQsMapper" >
+
+    <select id="getFWywjQsByDate" parameterType="java.lang.Integer" resultType="com.ygy.lteproj.entity.FWywjQs">
+        select
+        *
+        from F_WYWJ_QS where DATE_ID=#{dateId}
+    </select>
+
+    <select id="geFWywjQsByCityName" parameterType="java.lang.String" resultType="com.ygy.lteproj.entity.FWywjQs">
+        select
+        *
+        from F_WYWJ_QS where CITY_Name=#{cityName}
+    </select>
+
+    <select id="getFWywjQsByDateAndVenderName" parameterType="java.util.Map" resultType="com.ygy.lteproj.entity.FWywjQs">
+        select
+        *
+        from F_WYWJ_QS where DATE_ID=#{dateId} and VENDOR_NAME=#{vendorName}
+    </select>
+
+    <select id="getFWywjQsByliduaAndzhibiao" parameterType="java.util.Map" resultType="com.ygy.lteproj.entity.FWywjQs">
+        select *
+        from F_WYWJ_QS
+        where date_id &gt; #{rangeDate} and date_id &lt;= #{dqDate} and vendor_name='全部厂家' and city_name=#{cityName}  order by date_id asc
+    </select>
+
+
+
+
+
+
+
+</mapper>

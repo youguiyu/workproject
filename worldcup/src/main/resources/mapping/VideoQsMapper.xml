@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.worldcup.dao.VideoQsDao" >
+    <resultMap id="BaseResultMap" type="com.ygy.worldcup.domain.VideoQs" >
+
+        <result column="starttime" property="startTime" jdbcType="VARCHAR" />
+        <result column="city" property="city" jdbcType="INTEGER" />
+        <result column="Smooth_Playback" property="smoothPlayback" jdbcType="DECIMAL" />
+        <result column="app_sub_class_name" property="appSubClassName" jdbcType="VARCHAR" />
+
+    </resultMap>
+    <sql id="Base_Column_List" >
+        starttime,city,Smooth_Playback,app_sub_class_name
+    </sql>
+
+    <select id="findAll" parameterType="java.util.Map" resultMap="BaseResultMap">
+       select starttime,city,app_sub_class_name,
+        cast(case when sum(Smooth_Playback_b)>0 then round(100.00*sum(Smooth_Playback_a)/sum(Smooth_Playback_b),6)  else null end as numeric(10,2)) Smooth_Playback
+        from WG_CMCC_SSD.dbo.video_qs  GROUP BY starttime,app_sub_class_name,city ORDER BY starttime,app_sub_class_name,city desc
+    </select>
+
+
+    <select id="findlastTimeData" parameterType="java.util.Map" resultMap="BaseResultMap">
+
+         select starttime,city,app_sub_class_name,
+    cast(case when sum(Smooth_Playback_b)>0 then round(100.00*sum(Smooth_Playback_a)/sum(Smooth_Playback_b),6)  else null end as numeric(10,2)) Smooth_Playback
+    from WG_CMCC_SSD.dbo.video_qs  where city is not null and starttime=(select  MAX(starttime) from WG_CMCC_SSD.dbo.video_qs) GROUP BY starttime,app_sub_class_name,city ORDER BY starttime,app_sub_class_name,city asc
+
+    </select>
+    <select id="getAllTime" parameterType="java.util.Map" resultMap="BaseResultMap">
+
+        select starttime,
+        cast(case when sum(Smooth_Playback_b)>0 then round(100.00*sum(Smooth_Playback_a)/sum(Smooth_Playback_b),6)  else null end as numeric(10,2)) Smooth_Playback
+        from WG_CMCC_SSD.dbo.video_qs  where city is not null and starttime &lt;=#{maxTime} and starttime &gt;=#{minTime} GROUP BY starttime ORDER BY starttime asc
+    </select>
+    <select id="getAllHisData" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select starttime,city,app_sub_class_name,
+        cast(case when sum(Smooth_Playback_b)>0 then round(100.00*sum(Smooth_Playback_a)/sum(Smooth_Playback_b),6)  else null end as numeric(10,2)) Smooth_Playback
+        from WG_CMCC_SSD.dbo.video_qs  where city is not null and starttime &lt;=#{maxTime} and starttime &gt;=#{minTime} GROUP BY starttime,app_sub_class_name,city ORDER BY starttime,app_sub_class_name,city asc
+    </select>
+
+    <select id="getMaxTime" parameterType="java.util.Map" resultType="java.lang.String">
+        select  MAX(starttime) from WG_CMCC_SSD.dbo.video_qs
+    </select>
+
+
+</mapper>

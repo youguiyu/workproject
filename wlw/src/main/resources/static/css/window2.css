@@ -1,0 +1,127 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+#main table{
+	/*font-family: myfont3;*/
+}
+#main li{
+	list-style: none;
+	/*font-family: myfont4;*/
+}
+input{outline:none}
+body{
+	position: relative;
+}
+#main{
+	width: 1280px;
+	height: 100%;
+	overflow: hidden;
+	font-family: myfont3;
+	position: absolute;
+	top: 0;
+	z-index: 99;
+	display: none;
+	height: 1024px;
+	top: -44px;
+	background: rgba(10,20,28,0.6);
+}
+.windowbox{
+	width: 600px;
+	height: 600px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	overflow: hidden;
+	border: 2px solid #37cda9;
+	background: url(../img/right_trigle.png) rgba(22, 69, 91, 0.9) no-repeat;
+	background-position: 100% 0;
+	box-shadow: 0px 0px 10px black;
+}
+.web_alter,.safe_event,.DDOS,.DNS{
+	width: 25%;
+	height: 100%;
+	float: left;
+	text-align: center;
+	font-size: 60px;
+	color: white;
+	border: 1px solid #37cda9;
+}
+.btn_alter,.btn_safe,.btn_DDOS,.btn_DNS{
+	margin-top: 127px;
+	margin-bottom: 32px;
+	cursor: pointer;
+}
+/*.btn_DNS{
+	
+cursor: no-drop;
+}*/
+
+.safeEvent,.webTamper,.DDOS_attack,.domain_hijacking{
+	width: 804px;
+	height: 748px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	border: 10px solid #37cda9;
+	background: url(../img/right_trigle.png) rgba(22, 69, 91,0.9) no-repeat;
+	background-position: 100% 0;
+	display: none;
+}
+
+
+
+
+
+
+
+.window-pop{
+	width:1280x;
+    height: 100%;
+    overflow: hidden;
+    font-family: myfont3;
+    position: absolute;
+    top: 0;
+    display:none;
+    z-index: 99;
+    height: 1024px;
+    top: -44px;
+    background: rgba(10,20,28,0.6);         
+}
+.window-pop .box-title span{
+	margin-top:10px;
+	line-height:60px;
+} 
+.window-pop ul{
+	width:100%;
+	text-align:right;
+	margin-top:70px;
+	padding:0 130px;
+} 
+.window-pop ul li{
+	display:inline-block;
+	line-height:42px;
+	padding:0 20px;
+	margin-left:20px;
+	font-size:20px;
+	color:#fff;
+	cursor: pointer;
+	background:url(../img/navbg.png) no-repeat center center;
+	background-size:100% 100%;
+} 
+.window-pop ul li.active{
+	background-image:url(../img/navbg-1.png);
+}
+#window-pop-echarts{
+	width:534px;
+	height:380px;
+	margin:10px auto;
+}                                                                  

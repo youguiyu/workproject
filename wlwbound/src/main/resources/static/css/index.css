@@ -1,0 +1,129 @@
+.page-header{
+	text-align: center;
+}
+
+.white_content {
+	display: none;
+	position: absolute;
+	top: 23%;
+	left: 12%;
+	width: 1245px;
+	height: 350px;
+	border: 3px solid  gray;
+	z-index:1002;
+	background-color: #fff;
+	background: url('../img/wlwguizetu.jpg')
+
+
+}
+
+.black_overlay{
+	display: none;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index:1001;
+	-moz-opacity: 0.8;
+	opacity:.80;
+	filter: alpha(opacity=88);
+}
+
+.colse-puttton{
+	right:100%;
+	float:right;
+}
+
+#tableData{
+	text-align: center;
+	vertical-align: middle;
+}
+
+#tableData thead tr{
+	background-color: #b9def0;
+}
+
+#tableData thead tr th th-inner {
+	width: 100%;
+	height: 100%;
+	align: center;
+
+	vertical-align: middle;
+}
+
+
+#scrollWarn{
+	/*background-color:#760808;*/
+	background-color:rgb(0, 66, 112);
+	color:white;
+	font-size:14px;
+	height: 110px;
+	overflow: hidden;
+	/*border-radius:5px;*/
+	border-bottom-left-radius:6px;
+	border-bottom-right-radius:6px;
+
+	opacity:1;
+}
+#scrollWarn ul {
+	padding-left:0px;
+}
+
+#scrollWarn ul li {
+	list-style: none;
+	border-bottom:1px solid #fff;
+}
+
+.scrollTitle {
+	background-color:#bf3333;
+	opacity:1.0;
+	color:white;
+	font-size:16px;
+	overflow: hidden;
+}
+
+.scrollTitle ul li {
+	list-style:none;
+
+}
+
+
+.warnDate {
+	width:8%;
+	text-align:center;
+	display:-moz-inline-box;
+	display:inline-block;
+}
+
+
+.warnApn {
+	width:12%;
+	text-align:center;
+	display:-moz-inline-box;
+	display:inline-block;
+}
+
+.warnApnName {
+	width:18%;
+	text-align:center;
+	display:-moz-inline-box;
+	display:inline-block;
+}
+.warnContent {
+	width:35%;
+	text-align:center;
+	display:-moz-inline-box;
+	display:inline-block;
+
+
+}
+
+.warnResult {
+	width:25%;
+	text-align:center;
+	display:-moz-inline-box;
+	display:inline-block;
+}
+

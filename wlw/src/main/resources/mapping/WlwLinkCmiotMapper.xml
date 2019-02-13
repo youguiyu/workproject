@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ygy.lteproj.mapper.WlwLinkCmiotMapper" >
+    <resultMap id="BaseResultMap" type="com.ygy.lteproj.entity.WlwLinkCmiot" >
+
+        <result column="date_id" property="dateId" jdbcType="INTEGER" />
+        <result column="apn" property="apn" jdbcType="VARCHAR" />
+        <result column="user_rate" property="userRate" jdbcType="NUMERIC" />
+        <result column="xdr_rate" property="xdrRate" jdbcType="NUMERIC" />
+        <result column="flow_rate" property="flowRate" jdbcType="NUMERIC" />
+
+    </resultMap>
+    <sql id="Base_Column_List" >
+        date_id,apn,user_rate,xdr_rate,flow_rate
+    </sql>
+    <select id="findGaueData" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from f_cmcc_wlw_link_cmiot_cjj where date_id=#{yesDate}
+    </select>
+
+</mapper>

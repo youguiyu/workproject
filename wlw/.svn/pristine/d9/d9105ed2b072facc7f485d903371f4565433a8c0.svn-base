@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <title>物联网端到端分析首页</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/res/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+	 <!-- lteindex CSS -->
+    <link href="../static/css/index.css" rel="stylesheet">
+	
+	
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/res/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+   
+
+    <!-- Just for debugging purposes. Don't actually copy tdese 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../static/res/bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+        <div class="home-title">
+			大连接战略支撑体系<h4 id="dqDate"></h4>
+		</div>
+		<div class="page-container">
+			<div class="page-left" id="pageLeft" >
+				<div class="page-box1">全省行业指标呈现（用户数）</div>
+
+				<div  class="page-box" >
+				      <div id="main" ></div>
+				</div>
+			</div>
+			<div class="page-center">
+			    <div class="page-center3">
+				    <div class="zuodalianjieguimo">
+						<a  href="javascript:void(0)" onclick="zuoda()"><span id="zuoda" class="biaoyu">做<span id="zuodad" class="biaoyu1">大</span>连接规模</span></a>
+					</div>
+					<div class="zuoyoulianjiefuwu">
+						<a  href="javascript:void(0)" onclick="zuoyou()"><span id="zuoyou" class="biaoyu">做<span id="zuoyouy"  class="biaoyu1">优</span>连接服务</span></a>
+					</div>
+				    <div class="zuodalianjieyingyong">
+						<a  href="javascript:void(0)" onclick="zuoqiang()"><span id="zuoqiang" class="biaoyu">做<span id="zuoqiangq"  class="biaoyu1">强</span>连接应用</span></a>
+					</div>
+				</div>
+				<div class="page-center1">
+					<div class="gongan">
+						<a href = "../../../sodev/html/579" target="_blank"><img  src="../static/img/wlwimg/gongan.png" class="img-responsive img-circle" width="90" height="70" alt="Responsive image "></a>
+					</div>
+					<div class="dianli">
+						<a href = "../../../sodev/html/575" target="_blank"><img  src="../static/img/wlwimg/dianli.png" class="img-responsive  img-circle" width="90" height="75" alt="Responsive image "></a>
+					</div>
+					<div class="gonglu">
+						<a href = "../../../sodev/html/559" target="_blank"><img src="../static/img/wlwimg/gonglu.png" class="img-responsive img-circle" width="90" height="70" alt="Responsive image "></a>
+					</div>
+					<div class="ludeng">
+						<a href = "../../../sodev/html/552" target="_blank"><img src="../static/img/wlwimg/ludeng.png" class="img-responsive img-circle" width="90" height="70" alt="Responsive image "></a>
+					</div>
+				   <div class="yinghang">
+						<a href = "../../../sodev/html/567" target="_blank"><img src="../static/img/wlwimg/yinhang.png" class="img-responsive img-circle" width="90" height="70" alt="Responsive image "></a>
+					</div>
+					
+					<div class="shuili">
+						<a href = "../../../sodev/html/571" target="_blank"><img src="../static/img/wlwimg/shuili.png" class="img-responsive img-circle" width="90" height="70" alt="Responsive image "></a>
+					</div>
+					<div class="xhc">
+						<a href = "../../../sodev/html/556" target="_blank"><img src="../static/img/wlwimg/xhc.png" class="img-responsive img-circle" width="90" height="70" alt="Responsive image "></a>
+					</div>
+					<div class="chogndianzhuang">
+						<a href = "../../../sodev/html/583" target="_blank"><img src="../static/img/wlwimg/chogndianzhuang.png" class="img-responsive img-circle" width="90" height="70" alt="Responsive image "></a>
+					</div>
+					<div class="chelianwang">
+						<a href = "../../../sodev/html/587" target="_blank"><img src="../static/img/wlwimg/chelianwang.png" class="img-responsive img-circle" width="90" height="70" alt="Responsive image "></a>
+					</div>
+					<div class="tongyong">
+						<a href = "../../../sodev/html/563" target="_blank"><img src="../static/img/wlwimg/tongyong.png" class="img-responsive img-circle" width="90" height="70" alt="Responsive image "></a>
+					</div>
+					<div class="zonglan">
+						<a href = "../../../sodev/html/591" target="_blank"><h2 id="wwhl">万物互联</h2></a>
+					</div>
+				</div>
+				<div class="page-center2">
+					<marquee  onmouseover='this.stop()' onmouseout='this.start()'><h3 class="dongdian">痛点一：多方协同难度高;&nbsp;&nbsp;痛点二：业务各异，众口难调;&nbsp;&nbsp;痛点三：终端平台问题凸显;&nbsp;&nbsp;痛点四：对现网冲击明显;&nbsp;&nbsp;痛点五：现有手段无法覆盖;&nbsp;&nbsp;痛点六：安全问题更为突出;&nbsp;&nbsp;痛点七：新形态带来新挑战<h3></marquee>
+				</div>
+			</div>
+
+			<div class="page-right">
+				<div class="tab-title">重要指标</div>
+				<div class="page-box1">通用特征行业</div>  
+				<div  class="page-box-r" >
+				       <div class="page-box-n" id="scrollWarn1">
+					   </div>
+				</div>
+				<div class="page-box1">省内特色行业</div>  
+				<div  class="page-box-r" >
+				     <div class="page-box-n" id="scrollWarn2">
+					 </div>
+					
+				</div>
+			</div>
+
+		</div>
+    
+	
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at tde end of tde document so tde pages load faster -->
+    <script src="../static/js/jquery-3.0.0.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../static/res/bootstrap/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../static/res/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy tde next line! -->
+    <script src="../static/res/bootstrap/assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../static/res/bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
+	
+	 <!-- wlw core JavaScript
+    ================================================== -->
+	
+	 <script src="../static/js/index.js"></script>
+	  <script src="../static/res/echarts.min.js"></script>
+  </body>
+</html>

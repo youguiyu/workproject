@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <title>物联网定界专题</title>
+       <!-- Bootstrap core CSS -->
+       <link href="../static/bootstrap-3.3.7/dist/css/bootstrap.css" rel="stylesheet">
+       <link href="../static/css/index.css" rel="stylesheet">
+   </head>
+   <body>
+
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-10">
+               <div class="page-header">
+                   <h1 id="dingjietitle">20180702物联网重点行业APN异常监测及问题自动定界</h1>
+               </div>
+           </div>
+           <div class="col-md-1"></div>
+       </div>
+       <div class="row">
+           <div class="col-md-1"></div>
+
+           <div class="col-md-1">
+               <button type="button" class="btn btn-success" id="weekData" onclick="javascript:getWeekData();">周</button>
+               <button type="button" class="btn btn-default" id="monthData" onclick="javascript:getMonthData();">月</button>
+           </div>
+
+       </div>
+       <div class="row">&nbsp;</div>
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-10">
+
+               <div class="scrollTitle">
+                   <span class="warnDate">预警日期</span>
+                   <span class="warnApn">异常APN</span>
+                   <span class="warnApnName">异常专网名称</span>
+                   <span class="warnContent">异常内容</span>
+                   <span class="warnResult">定界分析结论</span>
+               </div>
+               <div class="content-body" id="scrollWarn">
+                   <ul style="margin-top: 0px;">
+                       <li style="text-align:center;">近期无物联网APN性能指标预警！</li>
+                       <li style="text-align:center;">近期无物联网APN性能指标预警！</li>
+
+
+                   </ul>
+               </div>
+           </div>
+           <div class="col-md-1"></div>
+       </div>
+       <div class="row">&nbsp;</div>
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-1">
+               <div class="input-group">
+                   <input type="text" class="form-control" placeholder="请选择日期" aria-describedby="basic-addon2" id="timeselect" />
+                   <span class="input-group-addon" id="basic-addon2">日</span>
+               </div>
+           </div>
+           <div class="col-md-1">
+               <button type="button" class="btn btn-default" onclick="javascript:findTableData()">查询</button>
+           </div>
+           <div class="col-md-1" >
+               <button type="button" class="btn btn-default" onclick="javascript:exportTable()">导出表格</button>
+           </div>
+       </div>
+       <div class="row">&nbsp;</div>
+
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-10">
+               <table id="tableData" class="table table-bordered table-hover table-striped"></table>
+           </div>
+           <div class="col-md-1"></div>
+       </div>
+
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-4">
+              <h3>
+
+                  注：重点行业专网质差规则表<span class="glyphicon glyphicon-search" aria-hidden="true" onclick="findGuiZe()"></span>
+              </h3>
+           </div>
+
+
+
+       </div>
+
+
+       <div id="light" class="white_content">
+           <div class="row">
+               <div class="col-xs-12">
+                   <a href = "javascript:closewin();" ><img src="../static/img/close4.png" class="colse-puttton" id="closeButtonId"/></a>
+               </div>
+           </div>
+
+       </div>
+       <div id="fade" class="black_overlay"></div>
+
+       <script type="text/javascript" src="../static/js/jquery-3.0.0.min.js"></script>
+       <script src="../static/js/jquery.min.js"></script>
+       <script src="../static/js/laydate/laydate.js"></script>
+       <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+
+
+       <script src="../static/js/bootstrap-table.min.js"></script>
+       <script src="../static/js/bootstrap-table-zh-CN.min.js"></script>
+
+       <script type="text/javascript" src="../static/js/index.js"></script>
+
+   </body>
+</html>

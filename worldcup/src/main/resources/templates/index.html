@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <title>世界杯专题</title>
+       <!-- Bootstrap core CSS -->
+       <link href="../static/res/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+   </head>
+   <body>
+
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-10">
+               <div class="page-header">
+                   <h1>世界杯各视频网站视频流畅度10分钟粒度实时统计分析</h1>
+               </div>
+           </div>
+           <div class="col-md-1"></div>
+       </div>
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-10">
+               <div id="chart1" style="height: 500px;width: 100%"></div>
+           </div>
+           <div class="col-md-1"></div>
+       </div>
+
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-10">
+               <div class="page-header">
+                   <h1>世界杯各视频网站视频流畅度历史的数据呈现</h1>
+               </div>
+           </div>
+           <div class="col-md-1"></div>
+       </div>
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-2">
+               <div class="input-group">
+                   <span class="input-group-addon" id="basic-addon2">历史数据区间</span>
+                   <select class="form-control" id="cityOption">
+                       <option value="1" selected>一个小时</option>
+                       <option value="2" >一天</option>
+                       <option value="3" >三天</option>
+                   </select>
+                   <button type="button" class="btn btn-default" onclick="javascript:updateData()">查询</button>
+
+               </div>
+
+
+           </div>
+       </div>
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-10">
+               <div id="chart2" style="height: 500px;width: 100%"></div>
+           </div>
+           <div class="col-md-1"></div>
+       </div>
+       <script type="text/javascript" src="../static/js/jquery-3.0.0.min.js"></script>
+       <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+       <script type="text/javascript" src="../static/js/index.js"></script>
+
+   </body>
+</html>

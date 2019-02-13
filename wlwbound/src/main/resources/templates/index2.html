@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <title>物联网小区定界专题</title>
+       <!-- Bootstrap core CSS -->
+       <link href="../static/bootstrap-3.3.7/dist/css/bootstrap.css" rel="stylesheet">
+       <link href="../static/css/index.css" rel="stylesheet">
+   </head>
+   <body>
+
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-10">
+               <div class="page-header">
+                   <h1 id="dingxiaoqujietitle">20180702物联网小区质差定界</h1>
+               </div>
+           </div>
+           <div class="col-md-1"></div>
+       </div>
+
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-2">
+               <div class="input-group">
+                   <input type="text" class="form-control" placeholder="请选择日期" aria-describedby="basic-addon2" id="timeselect" />
+                   <span class="input-group-addon" id="basic-addon2">日</span>
+               </div>
+           </div>
+           <div class="col-md-1">
+               <button type="button" class="btn btn-default" onclick="javascript:findTableData()">加载</button>
+           </div>
+           <div class="col-md-1" id="exportId">
+               <button type="button" class="btn btn-default" onclick="javascript:export4GTable()">导出表格</button>
+           </div>
+       </div>
+       <div class="row">&nbsp;</div>
+       <div class="row">
+           <div class="col-md-1"></div>
+
+           <div class="col-md-1">
+               <button type="button" class="btn btn-success" id="data4G" onclick="javascript:get4GData();">4G</button>
+               <button type="button" class="btn btn-default" id="data2G" onclick="javascript:get2GData();">2G</button>
+           </div>
+
+       </div>
+       <div class="row">&nbsp;</div>
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-10">
+               <table id="tableData" class="table table-bordered table-hover table-striped"></table>
+           </div>
+           <div class="col-md-1"></div>
+       </div>
+
+       <div class="row">
+           <div class="col-md-1"></div>
+           <div class="col-md-4">
+              <h3>
+                  注：筛选日活用户数>10的小区分析
+              </h3>
+           </div>
+       </div>
+       <script type="text/javascript" src="../static/js/jquery-3.0.0.min.js"></script>
+       <script src="../static/js/jquery.min.js"></script>
+       <script src="../static/js/laydate/laydate.js"></script>
+       <script type="text/javascript" src="../static/js/echarts.min.js"></script>
+
+
+       <script src="../static/js/bootstrap-table.min.js"></script>
+       <script src="../static/js/bootstrap-table-zh-CN.min.js"></script>
+
+       <script type="text/javascript" src="../static/js/index2.js"></script>
+
+   </body>
+</html>

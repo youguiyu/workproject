@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: lteproj
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: HP
+Implementation-Vendor-Id: com.ygy
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_101
+Main-Class: ${start-class}
+
